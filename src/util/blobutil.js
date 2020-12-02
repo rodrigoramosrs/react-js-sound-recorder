@@ -1,4 +1,43 @@
+import toWav from "./audioBufferToWave";
+var context = new (window.AudioContext || window.webkitAudioContext)();
+
 const blobUtil = {
+  appendBuffer: async function (sourceBlob, destinationBlob) {
+    if (!sourceBlob) return destinationBlob;
+    if (!destinationBlob) return sourceBlob;
+
+    let buffer1 = await sourceBlob.arrayBuffer();
+    let buffer2 = await destinationBlob.arrayBuffer();
+
+    buffer1 = await context.decodeAudioData(buffer1);
+    buffer2 = await context.decodeAudioData(buffer2);
+
+    debugger;
+    var numberOfChannels = Math.min(
+      buffer1.numberOfChannels,
+      buffer2.numberOfChannels
+    );
+    var tmp = context.createBuffer(
+      numberOfChannels,
+      buffer1.length + buffer2.length,
+      buffer1.sampleRate
+    );
+    for (var i = 0; i < numberOfChannels; i++) {
+      var channel = tmp.getChannelData(i);
+      channel.set(buffer1.getChannelData(i), 0);
+      channel.set(buffer2.getChannelData(i), buffer1.length);
+    }
+    debugger;
+    let waveArrayBuffer = toWav(tmp);
+
+    let result = new Blob(
+      [new Uint8Array(waveArrayBuffer, 0, waveArrayBuffer.byteLength)],
+      {
+        type: sourceBlob.type,
+      }
+    );
+    return result;
+  },
   appendBlob: async function (sourceBlob, destinationBlob) {
     if (!sourceBlob) return destinationBlob;
     if (!destinationBlob) return sourceBlob;

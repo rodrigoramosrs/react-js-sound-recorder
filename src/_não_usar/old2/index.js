@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import RecordRTC from "recordrtc";
-import waveSurferComponent from "./components/waveSurferComponent";
-import blobUtil from "./util/blobutil";
-
+import AudioRecorderComponent from "./components/AudioRecorderComponent";
+import "./components/styles/bootstrap.3.css";
+import "./components/styles/fontAwesome.4.4.0.css";
 const sleep = (m) => new Promise((r) => setTimeout(r, m));
 
 function ReactSoundRecorder() {
@@ -25,23 +24,6 @@ function ReactSoundRecorder() {
 
       console.log("Initializing Recorder Engine...");
 
-      await navigator.mediaDevices
-        .getUserMedia({ audio: true })
-        .then(async function (stream) {
-          setRecordStream(stream);
-
-          let recorder = RecordRTC(stream, {
-            type: "audio",
-          });
-          setRecorder(recorder);
-          setCanRecord(true);
-          //await sleep(3000);
-        })
-        .catch((ex) => {
-          console.log("Cannot record." + ex);
-          setCanRecord(false);
-        });
-
       setConstructorHasRun(true);
     }
     constructor();
@@ -51,29 +33,13 @@ function ReactSoundRecorder() {
     setPlaying(false);
     setRecording(true);
     setLastRecordedAudio(null);
-    recorder.startRecording();
-    waveSurferComponent.getInstance().microphone.start();
   }
 
   function DoPause() {
     if (recording) {
-      waveSurferComponent.getInstance().microphone.stop();
-      recorder.stopRecording(async function () {
-        let blob = recorder.getBlob();
+      //todo
+    } else waveSurferComponent.getInstance().pause();
 
-        let currentBlob = await blobUtil.appendBuffer(
-          currentRecordedAudio,
-          blob
-        );
-        waveSurferComponent.createInstance();
-        waveSurferComponent.load(URL.createObjectURL(currentBlob));
-
-        setLastRecordedAudio(blob);
-        setCurrentRecordedAudio(currentBlob);
-      });
-    }
-
-    waveSurferComponent.pause();
     setPlaying(false);
     setRecording(false);
   }
@@ -81,7 +47,6 @@ function ReactSoundRecorder() {
   function DoPlay() {
     setPlaying(true);
     setRecording(false);
-    waveSurferComponent.play();
   }
 
   function handleAlertClick() {
@@ -91,30 +56,18 @@ function ReactSoundRecorder() {
   }
 
   return (
-    <div style={{ width: "300px" }}>
-      <div id="waveform"></div>
-      <div id="progress-bar"></div>
-
-      <div id="wave-timeline"></div>
-
+    <div>
+      <AudioRecorderComponent />
       {canRecord && (
         <div>
           <p>Recording: {recording ? "sim" : "não"}</p>
           <p>Playing: {playing ? "sim" : "não"}</p>
 
-          {recording || playing ? null : (
-            <button onClick={DoRecord}>Gravar</button>
-          )}
-          {recording || playing ? null : (
-            <button onClick={DoPlay}>Reproduzir</button>
-          )}
-
-          {!recording || !playing ? (
-            <button onClick={DoPause}>Parar</button>
-          ) : null}
+          {recording ? null : <button onClick={DoRecord}>Gravar</button>}
+          {!recording ? null : <button onClick={DoPlay}>Reproduzir</button>}
+          <button onClick={DoPause}>Parar</button>
         </div>
       )}
-
       {!canRecord && <div>starting</div>}
     </div>
   );

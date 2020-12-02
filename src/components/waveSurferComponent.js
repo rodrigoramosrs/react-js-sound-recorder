@@ -47,7 +47,150 @@ const waveSurferComponent = {
     return waveSurfer == null;
   },
   createInstance: function () {
+    if (waveSurfer) {
+      waveSurfer.empty();
+      waveSurfer.destroy();
+    }
     CreateWaveSurferInstance();
+  },
+
+  cancelAjax: function () {
+    return waveSurfer.cancelAjax();
+  },
+  destroy: function () {
+    return waveSurfer.destroy();
+  },
+  empty: function () {
+    return waveSurfer.empty();
+  },
+  getActivePlugins: function () {
+    return waveSurfer.getActivePlugins();
+  },
+  getBackgroundColor: function () {
+    return waveSurfer.getBackgroundColor();
+  },
+  getCurrentTime: function () {
+    return waveSurfer.getCurrentTime();
+  },
+  getCursorColor: function () {
+    return waveSurfer.getCurrentTime();
+  },
+  getDuration: function () {
+    return waveSurfer.getDuration();
+  },
+  getPlaybackRate: function () {
+    return waveSurfer.getPlaybackRate();
+  },
+  getProgressColor: function () {
+    return waveSurfer.getProgressColor();
+  },
+  getVolume: function () {
+    return waveSurfer.getVolume();
+  },
+  getMute: function () {
+    return waveSurfer.getMute();
+  },
+  getFilters: function () {
+    return waveSurfer.getFilters();
+  },
+  getWaveColor: function () {
+    return waveSurfer.getWaveColor();
+  },
+  isPlaying: function () {
+    return waveSurfer.isPlaying();
+  },
+  skipBackward: function () {
+    return waveSurfer.skipBackward();
+  },
+  skipForward: function () {
+    return waveSurfer.skipForward;
+  },
+  setSinkId: function (SinkId) {
+    return waveSurfer.setSinkId(SinkId);
+  },
+  stop: function () {
+    return waveSurfer.stop();
+  },
+  toggleMute: function () {
+    return waveSurfer.toggleMute();
+  },
+  toggleInteraction: function () {
+    return waveSurfer.toggleInteraction();
+  },
+  toggleScroll: function () {
+    return waveSurfer.toggleScroll();
+  },
+  unAll: function () {
+    return waveSurfer.unAll();
+  },
+  pause: function () {
+    return waveSurfer.pause();
+  },
+  playPause: function () {
+    return waveSurfer.playPause();
+  },
+  exportPCM: function (length, accuracy, noWindow, start) {
+    return waveSurfer.exportPCM(length, accuracy, noWindow, start);
+  },
+  exportImage: function (format, quality, type) {
+    return waveSurfer.exportImage(format, quality, type);
+  },
+  play: function (start, end) {
+    return waveSurfer.play(start, end);
+  },
+  load: function (url, peaks, preload) {
+    return waveSurfer.load(url, peaks, preload);
+  },
+  loadBlob: function (url) {
+    return waveSurfer.loadBlob(url);
+  },
+  on: function (eventName, callback) {
+    return waveSurfer.on(eventName, callback);
+  },
+  un: function (eventName, callback) {
+    return waveSurfer.un(eventName, callback);
+  },
+  seekAndCenter: function (progress) {
+    return waveSurfer.seekAndCenter(progress);
+  },
+  seekTo: function (progress) {
+    return waveSurfer.seekTo();
+  },
+  setBackgroundColor: function (color) {
+    return waveSurfer.setBackgroundColor(color);
+  },
+  setCursorColor: function (color) {
+    return waveSurfer.setCursorColor(color);
+  },
+  setHeight: function (height) {
+    return waveSurfer.setHeight(height);
+  },
+  setFilter: function (filters) {
+    return waveSurfer.setFilter(filters);
+  },
+  setPlaybackRate: function (rate) {
+    return waveSurfer.setPlaybackRate(rate);
+  },
+  setPlayEnd: function (position) {
+    return waveSurfer.setPlayEnd(position);
+  },
+  setVolume: function (newVolume) {
+    return waveSurfer.setVolume(newVolume);
+  },
+  setMute: function (mute) {
+    return waveSurfer.setMute(mute);
+  },
+  setProgressColor: function (color) {
+    return waveSurfer.setProgressColor(color);
+  },
+  setWaveColor: function (color) {
+    return waveSurfer.setWaveColor(color);
+  },
+  skip: function (offset) {
+    return waveSurfer.skip(offset);
+  },
+  zoom: function (pxPerSec) {
+    return waveSurfer.zoom(pxPerSec);
   },
 };
 
