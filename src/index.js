@@ -1,48 +1,10 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import RecordRTC from "recordrtc";
-import WaveSurfer from "wavesurfer.js";
-import TimelinePlugin from "wavesurfer.js/dist/plugin/wavesurfer.timeline.min.js";
-import MinimapPlugin from "wavesurfer.js/dist/plugin/wavesurfer.minimap.min.js";
-import RegionPlugin from "wavesurfer.js/dist/plugin/wavesurfer.regions.min.js";
-import SpectrogramPlugin from "wavesurfer.js/dist/plugin/wavesurfer.spectrogram.min.js";
-import CursorPlugin from "wavesurfer.js/dist/plugin/wavesurfer.cursor.min.js";
-import ElanPlugin from "wavesurfer.js/dist/plugin/wavesurfer.elan.min.js";
+import waveSurferComponent from "./components/waveSurferComponent";
+import blobUtil from "./util/blobutil";
 
 const sleep = (m) => new Promise((r) => setTimeout(r, m));
-var wavesurfer = undefined;
-setTimeout(() => {
-  wavesurfer = WaveSurfer.create({
-    container: "#waveform",
-    waveColor: "violet",
-    progressColor: "purple",
-    plugins: [
-      CursorPlugin.create({
-        showTime: true,
-        opacity: 1,
-        customShowTimeStyle: {
-          "background-color": "#000",
-          color: "#fff",
-          padding: "2px",
-          "font-size": "10px",
-        },
-      }),
-    ],
-  });
-}, 3000);
-
-async function constructor() {
-  console.log("Initializing Recorder Engine...");
-
-  await navigator.mediaDevices
-    .getUserMedia({ audio: true })
-    .then(async function (stream) {
-      //await sleep(3000);
-    })
-    .catch((ex) => {
-      debugger;
-    });
-}
 
 function ReactSoundRecorder() {
   const [count, setCount] = useState(0);
@@ -55,11 +17,7 @@ function ReactSoundRecorder() {
   const [constructorHasRun, setConstructorHasRun] = useState(false); //Constructor Control
 
   const [lastRecordedAudio, setLastRecordedAudio] = useState(null); //Constructor Control
-
-  useEffect(() => {
-    debugger;
-    let teste = navigator.mediaDevices;
-  }, [constructor, count]);
+  const [currentRecordedAudio, setCurrentRecordedAudio] = useState(null); //Constructor Control
 
   useEffect(() => {
     async function constructor() {
@@ -67,7 +25,6 @@ function ReactSoundRecorder() {
 
       console.log("Initializing Recorder Engine...");
 
-      debugger;
       await navigator.mediaDevices
         .getUserMedia({ audio: true })
         .then(async function (stream) {
@@ -94,29 +51,36 @@ function ReactSoundRecorder() {
     setPlaying(false);
     setRecording(true);
     setLastRecordedAudio(null);
-    recorder.startRecording();
+    waveSurferComponent.getInstance().microphone.start();
+    setTimeout(() => {
+      recorder.startRecording();
+    }, 1000);
   }
 
   function DoPause() {
     if (recording) {
-      recorder.stopRecording(function () {
+      waveSurferComponent.getInstance().microphone.stop();
+      recorder.stopRecording(async function () {
         let blob = recorder.getBlob();
 
-        var blobUrl = URL.createObjectURL(blob);
-        wavesurfer.load(blobUrl);
+        debugger;
+        let currentBlob = await blobUtil.appendBlob(currentRecordedAudio, blob);
         setLastRecordedAudio(blob);
+        setCurrentRecordedAudio(currentBlob);
+        waveSurferComponent
+          .getInstance()
+          .load(URL.createObjectURL(currentBlob));
       });
-    }
+    } else waveSurferComponent.getInstance().pause();
 
     setPlaying(false);
     setRecording(false);
-    wavesurfer.pause();
   }
 
   function DoPlay() {
     setPlaying(true);
     setRecording(false);
-    wavesurfer.play();
+    waveSurferComponent.getInstance().play();
   }
 
   function handleAlertClick() {
@@ -128,33 +92,19 @@ function ReactSoundRecorder() {
   return (
     <div>
       <div id="waveform"></div>
+      <div id="wave-timeline"></div>
       {canRecord && (
         <div>
           <p>Recording: {recording ? "sim" : "não"}</p>
           <p>Playing: {playing ? "sim" : "não"}</p>
-          <button onClick={DoRecord}>Gravar</button>
+
+          {recording ? null : <button onClick={DoRecord}>Gravar</button>}
+          {!recording ? null : <button onClick={DoPlay}>Reproduzir</button>}
           <button onClick={DoPause}>Parar</button>
-          <button onClick={DoPlay}>Reproduzir</button>
         </div>
       )}
 
       {!canRecord && <div>starting</div>}
-
-      {lastRecordedAudio && (
-        <div>
-          {/* <AudioPlayer
-            autoPlay
-            src={URL.createObjectURL(lastRecordedAudio)}
-            onPlay={(e) => console.log("onPlay")}
-            // other props here
-          /> */}
-        </div>
-      )}
-      {/*
-      <p>You clicked {count} times</p>
-      <p>Record Status</p>
-      <button onClick={() => setCount(count + 1)}>Mostrar</button>
-      <button onClick={handleAlertClick}>Mostrar aviso</button>*/}
     </div>
   );
 }
