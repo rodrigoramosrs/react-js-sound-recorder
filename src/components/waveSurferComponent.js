@@ -19,11 +19,17 @@ const CreateWaveSurferInstance = () => {
     waveColor: "violet",
     progressColor: "purple",
     backend: "MediaElementWebAudio",
+    height: 48,
+    minPxPerSec: 100,
+    partialRender: true, //for performance improve
+    responsive: true,
     plugins: [
       TimelinePlugin.create({
         container: "#wave-timeline",
+        timeInterval: 0.5,
       }),
-      MicrophonePlugin.create(),
+      /*
+      MicrophonePlugin.create(),*/
       CursorPlugin.create({
         showTime: true,
         opacity: 1,

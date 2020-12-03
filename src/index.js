@@ -47,17 +47,18 @@ function ReactSoundRecorder() {
     constructor();
   }, []);
 
+  function AudioProcess(a, b, c) {
+    debugger;
+  }
   function DoRecord() {
     setPlaying(false);
     setRecording(true);
     setLastRecordedAudio(null);
     recorder.startRecording();
-    waveSurferComponent.getInstance().microphone.start();
   }
 
   function DoPause() {
     if (recording) {
-      waveSurferComponent.getInstance().microphone.stop();
       recorder.stopRecording(async function () {
         let blob = recorder.getBlob();
 
@@ -92,11 +93,17 @@ function ReactSoundRecorder() {
 
   return (
     <div style={{ width: "300px" }}>
-      <div id="waveform"></div>
-      <div id="progress-bar"></div>
-
-      <div id="wave-timeline"></div>
-
+      <div
+        style={{
+          visibility: recording ? "hidden" : "visible",
+          height: recording ? "0px" : "",
+        }}
+      >
+        <div style={{ position: "relative" }} id="waveform"></div>
+        <div id="progress-bar"></div>
+        <div id="wave-timeline"></div>
+      </div>
+      {recording && <div>Gravando...</div>}
       {canRecord && (
         <div>
           <p>Recording: {recording ? "sim" : "não"}</p>
@@ -114,7 +121,6 @@ function ReactSoundRecorder() {
           ) : null}
         </div>
       )}
-
       {!canRecord && <div>starting</div>}
     </div>
   );
