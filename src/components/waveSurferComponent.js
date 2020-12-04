@@ -16,25 +16,29 @@ document.addEventListener("DOMContentLoaded", function (event) {
 const CreateWaveSurferInstance = () => {
   waveSurfer = WaveSurfer.create({
     container: "#waveform",
-    waveColor: "violet",
-    progressColor: "purple",
+    waveColor: "#D2EDD4",
+    progressColor: "#46B54D",
     backend: "MediaElementWebAudio",
-    height: 48,
+    height: 200,
     minPxPerSec: 100,
-    partialRender: true, //for performance improve
+    normalize: true, //If true, normalize by the maximum peak instead of 1.0.
+
+    //scrollParent: true, // Freezes chrome tab
+    barGap: null, // the optional spacing between bars of the wave, if not provided will be calculated in legacy format
+    //partialRender: true, //for performance improve
     responsive: true,
     plugins: [
-      TimelinePlugin.create({
+      /*TimelinePlugin.create({
         container: "#wave-timeline",
         timeInterval: 0.5,
-      }),
+      }),*/
       /*
       MicrophonePlugin.create(),*/
       CursorPlugin.create({
         showTime: true,
         opacity: 1,
         customShowTimeStyle: {
-          "background-color": "#000",
+          "background-color": "gray",
           color: "#fff",
           padding: "2px",
           "font-size": "10px",
@@ -52,12 +56,46 @@ const waveSurferComponent = {
   isStarted: function () {
     return waveSurfer == null;
   },
-  createInstance: function () {
+  emptyAndDestroy() {
+    if (waveSurfer) {
+      waveSurfer.empty();
+      waveSurfer.destroy();
+    }
+  },
+  createInstance: function (
+    onLoadingCallback,
+    playbackFinishCallback,
+    playbackPositionChangedCallback,
+    playbackCursorPositionChangedCallback
+  ) {
     if (waveSurfer) {
       waveSurfer.empty();
       waveSurfer.destroy();
     }
     CreateWaveSurferInstance();
+
+    waveSurfer.on("play", function (a, b, c) {
+      console.log("Started Play");
+    });
+
+    waveSurfer.on("audioprocess", function (pos) {
+      if (!playbackPositionChangedCallback) return;
+      playbackPositionChangedCallback(waveSurfer.getCurrentTime());
+    });
+
+    waveSurfer.on("seek", function () {
+      if (!playbackCursorPositionChangedCallback) return;
+      playbackCursorPositionChangedCallback(waveSurfer.getCurrentTime());
+    });
+
+    waveSurfer.on("finish", function () {
+      if (!playbackFinishCallback) return;
+      playbackFinishCallback();
+    });
+    waveSurfer.on("loading", function (percent) {
+      if (!onLoadingCallback) return;
+      onLoadingCallback(percent);
+    });
   },
 
   cancelAjax: function () {

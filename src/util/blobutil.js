@@ -12,7 +12,6 @@ const blobUtil = {
     buffer1 = await context.decodeAudioData(buffer1);
     buffer2 = await context.decodeAudioData(buffer2);
 
-    debugger;
     var numberOfChannels = Math.min(
       buffer1.numberOfChannels,
       buffer2.numberOfChannels
@@ -27,7 +26,7 @@ const blobUtil = {
       channel.set(buffer1.getChannelData(i), 0);
       channel.set(buffer2.getChannelData(i), buffer1.length);
     }
-    debugger;
+
     let waveArrayBuffer = toWav(tmp);
 
     let result = new Blob(
@@ -53,7 +52,6 @@ const blobUtil = {
       new Uint8Array(destinationBuffer),
       sourceBuffer.byteLength
     );
-    debugger;
 
     //return new Blob([new Uint8Array(buffer, byteOffset, length)]);;
     let result = new Blob(
@@ -84,7 +82,6 @@ const blobUtil = {
       new Uint8Array(destinationBuffer),
       sourceBuffer.byteLength
     );
-    debugger;
 
     //return new Blob([new Uint8Array(buffer, byteOffset, length)]);;
     let result = new Blob(

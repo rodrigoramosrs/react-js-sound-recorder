@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import RecordRTC from "recordrtc";
+import RecordRTC, { MediaStreamRecorder } from "recordrtc";
 import waveSurferComponent from "./components/waveSurferComponent";
 import blobUtil from "./util/blobutil";
+import { calculateTimeDuration } from "./util/timeUtils";
 
 const sleep = (m) => new Promise((r) => setTimeout(r, m));
 
@@ -19,6 +20,11 @@ function ReactSoundRecorder() {
   const [lastRecordedAudio, setLastRecordedAudio] = useState(null); //Constructor Control
   const [currentRecordedAudio, setCurrentRecordedAudio] = useState(null); //Constructor Control
 
+  const [lastRecordedAudioTime, setLastRecordedAudioTime] = useState(0); //Only current recoding session (by click)
+  const [currentRecordedAudioTime, setCurrentRecordedAudioTime] = useState(0); //All recorded time,
+
+  const [cursorTimePosition, setCursorTimePosition] = useState(0);
+
   useEffect(() => {
     async function constructor() {
       if (constructorHasRun) return;
@@ -32,6 +38,18 @@ function ReactSoundRecorder() {
 
           let recorder = RecordRTC(stream, {
             type: "audio",
+            recorderType: MediaStreamRecorder,
+            onStateChanged: function (state) {
+              console.log("Current Recorder State:" + state);
+            },
+            timeSlice: 100,
+            onTimeStamp: function (timestamp, timestamps) {
+              var duration = new Date().getTime() - timestamps[0]; /// 1000;
+              if (duration < 0) return;
+
+              let TotalRecordedTime = lastRecordedAudioTime + duration;
+              setLastRecordedAudioTime(TotalRecordedTime);
+            },
           });
           setRecorder(recorder);
           setCanRecord(true);
@@ -47,14 +65,13 @@ function ReactSoundRecorder() {
     constructor();
   }, []);
 
-  function AudioProcess(a, b, c) {
-    debugger;
-  }
   function DoRecord() {
     setPlaying(false);
     setRecording(true);
     setLastRecordedAudio(null);
+    setLastRecordedAudioTime(0);
     recorder.startRecording();
+    waveSurferComponent.emptyAndDestroy();
   }
 
   function DoPause() {
@@ -66,15 +83,35 @@ function ReactSoundRecorder() {
           currentRecordedAudio,
           blob
         );
-        waveSurferComponent.createInstance();
+
+        waveSurferComponent.createInstance(
+          function (percentage) {
+            //LOADING CALLBACK
+            console.log("Loading audio percentage: " + percentage);
+          },
+          function () {
+            //PLAYBACK FINISH CALLBACK
+            DoPause();
+          },
+          function (seconds) {
+            // PLAYBACK POSITION
+            setCursorTimePosition(Math.floor(seconds * 1000));
+          },
+          function (seconds) {
+            // CURSOR POSITION
+            setCursorTimePosition(Math.floor(seconds * 1000));
+          }
+        );
         waveSurferComponent.load(URL.createObjectURL(currentBlob));
 
+        setCurrentRecordedAudioTime(
+          currentRecordedAudioTime + lastRecordedAudioTime
+        );
         setLastRecordedAudio(blob);
         setCurrentRecordedAudio(currentBlob);
       });
-    }
+    } else waveSurferComponent.pause();
 
-    waveSurferComponent.pause();
     setPlaying(false);
     setRecording(false);
   }
@@ -84,6 +121,13 @@ function ReactSoundRecorder() {
     setRecording(false);
     waveSurferComponent.play();
   }
+  function downloadCurrentAudio() {
+    let filename = "sample-audio";
+    const link = document.createElement("a");
+    link.href = window.URL.createObjectURL(currentRecordedAudio);
+    link.download = `${filename}-${+new Date()}.mp3`;
+    link.click();
+  }
 
   function handleAlertClick() {
     setTimeout(() => {
@@ -92,14 +136,17 @@ function ReactSoundRecorder() {
   }
 
   return (
-    <div style={{ width: "300px" }}>
+    <div style={{ width: "100%" }}>
       <div
         style={{
           visibility: recording ? "hidden" : "visible",
           height: recording ? "0px" : "",
         }}
       >
-        <div style={{ position: "relative" }} id="waveform"></div>
+        <div
+          style={{ position: "relative", background: "rgba(0,0,0,0.8)" }}
+          id="waveform"
+        ></div>
         <div id="progress-bar"></div>
         <div id="wave-timeline"></div>
       </div>
@@ -108,6 +155,18 @@ function ReactSoundRecorder() {
         <div>
           <p>Recording: {recording ? "sim" : "não"}</p>
           <p>Playing: {playing ? "sim" : "não"}</p>
+
+          {!recording && (
+            <p>PlaybackPosition: {calculateTimeDuration(cursorTimePosition)}</p>
+          )}
+
+          <p>Total: {calculateTimeDuration(currentRecordedAudioTime)}</p>
+
+          {recording && (
+            <p>
+              CurrentRecording: {calculateTimeDuration(lastRecordedAudioTime)}
+            </p>
+          )}
 
           {recording || playing ? null : (
             <button onClick={DoRecord}>Gravar</button>
@@ -119,6 +178,24 @@ function ReactSoundRecorder() {
           {!recording || !playing ? (
             <button onClick={DoPause}>Parar</button>
           ) : null}
+
+          {currentRecordedAudio && !recording && (
+            <div>
+              <audio controls>
+                <source src={URL.createObjectURL(currentRecordedAudio)} />
+              </audio>
+            </div>
+          )}
+
+          {currentRecordedAudio && !recording && (
+            <div>
+              <input
+                type="button"
+                value="Download"
+                onClick={downloadCurrentAudio}
+              />
+            </div>
+          )}
         </div>
       )}
       {!canRecord && <div>starting</div>}
