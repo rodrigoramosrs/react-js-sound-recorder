@@ -294,7 +294,7 @@ function ReactSoundRecorder() {
                   <Grid item container>
                     <Grid item xs={9}>
                       <Grid item container>
-                        <Grid item xs={3}>
+                        <Grid item xs={4}>
                           <Button
                             variant="contained"
                             disabled={recording || playing}
@@ -309,7 +309,7 @@ function ReactSoundRecorder() {
                           </Button>
                         </Grid>
 
-                        <Grid item xs={3}>
+                        <Grid item xs={4}>
                           <Button
                             variant="contained"
                             disabled={!recording && !playing}
@@ -327,7 +327,7 @@ function ReactSoundRecorder() {
                             Pause
                           </Button>
                         </Grid>
-                        <Grid item xs={3}>
+                        <Grid item xs={4}>
                           <Button
                             variant="contained"
                             disabled={recording || playing}
@@ -345,7 +345,7 @@ function ReactSoundRecorder() {
                             Play
                           </Button>
                         </Grid>
-                        <Grid item xs={3}>
+                        {/* <Grid item xs={3}>
                           <Button
                             variant="contained"
                             disabled={recording || playing}
@@ -356,7 +356,7 @@ function ReactSoundRecorder() {
                           >
                             Delete
                           </Button>
-                        </Grid>
+                        </Grid> */}
                       </Grid>
                     </Grid>
                     <Grid item xs={3}>

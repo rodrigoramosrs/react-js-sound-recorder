@@ -34,13 +34,13 @@ const CreateWaveSurferInstance = () => {
       }),*/
       /*
       MicrophonePlugin.create(),*/
-      RegionPlugin.create({
+      /* RegionPlugin.create({
         regionsMinLength: 2,
         color: "hsla(90, 100%, 30%, 0.5)",
         dragSelection: {
           slop: 1,
         },
-      }),
+      }),*/
       CursorPlugin.create({
         showTime: true,
         opacity: 1,
