@@ -19,7 +19,7 @@ const CreateWaveSurferInstance = () => {
     waveColor: "#D2EDD4",
     progressColor: "#46B54D",
     backend: "MediaElementWebAudio",
-    height: 200,
+    height: 92,
     minPxPerSec: 100,
     normalize: true, //If true, normalize by the maximum peak instead of 1.0.
 
@@ -34,6 +34,13 @@ const CreateWaveSurferInstance = () => {
       }),*/
       /*
       MicrophonePlugin.create(),*/
+      RegionPlugin.create({
+        regionsMinLength: 2,
+        color: "hsla(90, 100%, 30%, 0.5)",
+        dragSelection: {
+          slop: 1,
+        },
+      }),
       CursorPlugin.create({
         showTime: true,
         opacity: 1,
