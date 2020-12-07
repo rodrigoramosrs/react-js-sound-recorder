@@ -1,5 +1,26 @@
 module.exports = {
   type: "react-component",
+  webpack: {
+    rules: {
+      exclude: {
+        test: [
+          /\.html$/,
+          /\.(js|jsx)$/,
+          /\.css$/,
+          /\.json$/,
+          /\.bmp$/,
+          /\.gif$/,
+          /\.jpe?g$/,
+          /\.png$/,
+        ],
+        exclude: [
+          "src/lib/dist/wavesurfer.js",
+          "src/lib/dist/plugin/wavesurfer.regions.js",
+        ],
+        loader: "dumb-loader",
+      },
+    },
+  },
   npm: {
     esModules: true,
     umd: {

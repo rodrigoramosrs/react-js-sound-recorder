@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { render } from "react-dom";
-import "./style.css";
+//import "./style.css";
 import ReactSoundRecorder from "../../src";
 
 class Demo extends Component {
@@ -14,7 +14,7 @@ class Demo extends Component {
   render() {
     return (
       <div>
-        <div style={{ backgroundColor: "white", padding: "12px" }}>
+        <div style={{ padding: "12px", height: "300px" }}>
           <h1>React Audio Recorder</h1>
           <ReactSoundRecorder />
         </div>
