@@ -6,7 +6,7 @@ function teste(fileSource, callback) {
   });
 
   audio.onerror = function () {
-    alert("Failed to load: " + mp3URL);
+    alert("Falha ao carregar: " + mp3URL);
     document.getElementById("load-mp3-url").value = "";
   };
 

@@ -14,7 +14,7 @@
       progressColor: "rgba(128,85,85,0.24)",
       splitChannels: true,
       autoCenter: true,
-      height: w.innerHeight - 168,
+      height: 60, //w.innerHeight - 168,
       plugins: [
         WaveSurfer.regions.create({
           dragSelection: {
@@ -400,8 +400,8 @@
       if (app.ui && app.ui.BarBtm) {
         bottom = app.ui.BarBtm.on ? app.ui.BarBtm.height : 0;
       }
-
-      wavesurfer.setHeight((h < 280 ? 280 : h) - 168 - bottom);
+      console.log("setheight:" + (h < 280 ? 280 : h) - 168 - bottom);
+      wavesurfer.setHeight(60); //(h < 280 ? 280 : h) - 168 - bottom);
       // app.fireEvent ('DidResize');
     });
 

@@ -2556,7 +2556,7 @@
     var media_stream_source = null;
     var temp_buffers = [];
     var newbuff = null;
-    var sample_rate = 44100;
+    var sample_rate = 22050 / 2; //44100;
     var buffer_size = 2048; // * 2 ?
     var channel_num = 1;
     var channel_num_out = 1;
@@ -2604,11 +2604,11 @@
           "</div>" +
           '<div class="pk_row">' +
           '<div style="float:left"><label>Volume</label>' +
-          '<canvas width="200" height="40"></canvas></div>' +
+          '<canvas width="200" height="10"></canvas></div>' +
           '<div style="float:left;margin-left:20px;"><label>Tempo</label>' +
-          '<span style="font-size: 24px;line-height: 50px;">0.0</span></div>' +
-          '<div style="clear:both;height:10px"></div>' +
-          '<div><label>Waveform</label><canvas width="1000" height="200" style="image-rendering:pixelated;width:500px;height:100px;display:block;background:#000"></canvas></div>' +
+          '<span style="font-size: 24px;line-height: 15px;">0.0</span></div>' +
+          '<div style="clear:both;height:0px"></div>' +
+          '<div><label>Waveform</label><canvas width="1000" height="200" style="image-rendering:pixelated;width:500px;height:24px;display:block;background:#000"></canvas></div>' +
           "</div>" +
           '<div class="pk_row">' +
           '<a class="pk_tbsa pk_inact" style="text-align: center;">INICIAR GRAVAÇÃO</a>' +
@@ -2872,7 +2872,7 @@
               enumerate();
             })
             .catch(function (error) {
-              alert("no microphone permissions found!");
+              alert("Nenhuma permissão de microfone encontrada!");
             });
 
           var enumerate = function () {

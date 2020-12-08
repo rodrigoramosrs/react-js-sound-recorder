@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
+import audioBufferToWav from "./converter/audioBufferToWav";
 
 import "./lib/oneup.js";
 
@@ -60,7 +61,35 @@ function ReactSoundRecorder() {
     editor = PKAudioEditor.init("app");
     setInitialized(true);
   }, []);
-  return <div id="app"></div>;
+
+  return (
+    <div style={{ display: "inline-table", width: "100%" }}>
+      <div id="app" />
+    </div>
+  );
+}
+
+export function loadFromUrl(url) {
+  if (!editor) {
+    alert("Gravador não incializado.");
+    return;
+  }
+
+  debugger;
+  editor.engine.LoadURL(url);
+}
+
+export function loadFromFile(file) {
+  if (!editor) {
+    alert("Gravador não incializado.");
+    return;
+  }
+  editor.engine.LoadFile(file);
+}
+
+export function getAudioBuffer() {
+  var wav = audioBufferToWav(editor.engine.wavesurfer.backend.buffer);
+  return wav;
 }
 
 ReactSoundRecorder.propTypes = {

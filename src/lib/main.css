@@ -26,11 +26,15 @@ body {
 
 body,
 html {
-  height: 100%;
-  background: #111;
+  /* height: 100%;
+  background: #111; */
   /*overflow:hidden*/
 }
 
+.pk_app {
+  background: #111;
+  overflow: hidden;
+}
 .pk_noselect {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -144,7 +148,7 @@ html {
 
 /** TOOL BAR **/
 .pk_tb {
-  height: 48px;
+  height: 24px;
   background: #363636;
   position: relative;
   z-index: 6;
@@ -274,12 +278,12 @@ a {
 
 .pk_timecontainer {
   float: left;
-  width: 236px;
+  width: 164px;
   margin-right: 12px;
   border: 1px solid #777;
   background: black;
   position: relative;
-  height: 46px;
+  height: 24px;
   color: #eee;
   border-radius: 3px;
   contain: strict;
@@ -291,11 +295,12 @@ a {
 .pk_timing {
   display: block;
   position: absolute;
-  padding: 7px 0 0 14px;
+  padding: 4px 0 0 7px;
   letter-spacing: 1px;
-  font-size: 29px;
+  font-size: 12px;
   text-align: left;
   z-index: 2;
+  font-weight: 900;
 }
 
 .pk_btngroup {
@@ -309,7 +314,7 @@ a {
   margin-right: 12px;
   min-width: 340px;
   padding: 0 2px;
-  height: 46px;
+  height: 24px;
   border: 1px solid #777;
   border-radius: 3px;
 }
@@ -397,15 +402,15 @@ a {
 }
 .pk_av {
   clear: both;
-  width: 100%;
-  width: calc(100% - 64px);
+  height: 64px; /*100%;*/ /* Altura do wave */
+  width: calc(100% - 48px);
   margin: 0 auto;
   /*height:calc(100% - 168px);*/
 
   background: #000;
   position: relative;
   overflow: hidden;
-  margin-left: 48px; /*left menu*/
+  margin-left: 30px; /*left menu*/
 }
 
 .pk_av wave {
@@ -584,7 +589,7 @@ a {
 
 .pk_panner {
   position: absolute;
-  width: 48px;
+  width: 24px;
   height: 100%;
   left: 0;
   top: 0;
@@ -596,13 +601,13 @@ a {
 
 .pk_pan_left {
   position: absolute;
-  left: 14px;
+  left: 7px;
   top: 0%;
   height: 50%;
 }
 .pk_pan_right {
   position: absolute;
-  left: 14px;
+  left: 7px;
   top: 50%;
   height: 50%;
 }
@@ -1452,7 +1457,7 @@ input.pk_horiz.pk_w180 {
   }
 }
 
-@media only screen and (max-width: 1250px) {
+@media only screen and (max-width: 9050px) {
   .pk_ctns,
   .pk_transport {
     float: none;
@@ -1461,7 +1466,7 @@ input.pk_horiz.pk_w180 {
     min-width: auto;
     margin-right: 14px;
     margin-top: 0;
-    height: 28px;
+    height: 24px;
   }
   .pk_selection {
     min-width: auto;
@@ -1511,7 +1516,7 @@ input.pk_horiz.pk_w180 {
     width: 212px;
   }
   .icon-clearsel:before {
-    content: "clear";
+    content: "limpar";
   }
   .pk_mark1 {
     font-size: 9px;
@@ -1519,7 +1524,7 @@ input.pk_horiz.pk_w180 {
   }
 }
 
-@media only screen and (max-width: 779px) {
+@media only screen and (max-width: 000px) {
   .pk_selection {
     display: none !important;
   }
@@ -1859,8 +1864,8 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 body.pk_stndln {
-  padding-bottom: 600px;
-  overflow: hidden;
+  /* padding-bottom: 600px;
+  overflow: hidden; */
 }
 
 .pk_stndln .pk_fxd {

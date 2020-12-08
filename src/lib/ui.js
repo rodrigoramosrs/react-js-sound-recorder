@@ -9,7 +9,7 @@
     this.el = app.el;
 
     // if mobile add proper class
-    this.el.className += " pk_app" + (app.isMobile ? " pk_mob" : "");
+    this.el.className += " pk_app pk_mob" + (app.isMobile ? " pk_mob" : "");
 
     // hold refferences to the event functions
     this.fireEvent = app.fireEvent;
@@ -87,7 +87,7 @@
 
     app.listenFor("ShowError", function (message) {
       new PKSimpleModal({
-        title: "Oops! Something is not right",
+        title: "Oops! Algo não está correto",
         clss: "pk_modal_anim",
         ondestroy: function (q) {
           app.ui.InteractionHandler.on = false;
@@ -121,13 +121,13 @@
   function _topbarConfig(app, ui) {
     return [
       {
-        name: "File",
+        name: "Arquivo",
         children: [
           {
-            name: "Export / Download",
+            name: "Exportar / Baixar",
             action: function () {
               new PKSimpleModal({
-                title: "Export / Download",
+                title: "Exportar / Baixar",
 
                 ondestroy: function (q) {
                   app.ui.InteractionHandler.on = false;
@@ -184,7 +184,7 @@
                 ],
                 body:
                   '<div class="pk_row"><label for="k0">File Name</label>' +
-                  '<input style="min-width:250px" placeholder="mp3 filename" value="audiomass-output.mp3" ' +
+                  '<input style="min-width:250px" placeholder="mp3 filename" value="ramos-audio-output.mp3" ' +
                   'class="pk_txt" type="text" id="k0" /></div>' +
                   '<div class="pk_row" id="frmtex" style="padding-bottom:4px"><label style="display:inline">Format</label>' +
                   '<input type="radio" class="pk_check" id="k01" name="frmtex" checked value="mp3">' +
@@ -287,7 +287,7 @@
           },
 
           {
-            name: "Load from Computer",
+            name: "Carregar do computador",
             type: "file",
             action: function (e) {
               app.fireEvent("RequestLoadLocalFile");
@@ -295,17 +295,17 @@
           },
 
           {
-            name: "Load Sample File",
+            name: "Carregar arquivo exemplo",
             action: function (e) {
               app.engine.LoadSample();
             },
           },
 
           {
-            name: "Load From URL",
+            name: "Carregar de uma URL",
             action: function (e) {
               new PKSimpleModal({
-                title: "Load audio from remote url",
+                title: "Carregar audio de uma url remota",
 
                 ondestroy: function (q) {
                   app.ui.InteractionHandler.on = false;
@@ -315,7 +315,7 @@
 
                 buttons: [
                   {
-                    title: "Load Asset",
+                    title: "Carregar Conteúdo",
                     clss: "pk_modal_a_accpt",
                     callback: function (q) {
                       var input = q.el_body.getElementsByTagName("input")[0];
@@ -344,15 +344,15 @@
                         app.engine.LoadURL(value);
                         q.Destroy();
                       } else {
-                        OneUp("Invalid URL entered", 1100);
+                        OneUp("Url informada é inválida", 1100);
                       }
                       // -
                     },
                   },
                 ],
                 body:
-                  '<label for="k00">Insert url</label>' +
-                  '<input style="min-width:250px" placeholder="Please insert url" class="pk_txt" type="text" id="k00" />',
+                  '<label for="k00">Informe a URL</label>' +
+                  '<input style="min-width:250px" placeholder="Porfavor informe uma URL" class="pk_txt" type="text" id="k00" />',
                 setup: function (q) {
                   app.fireEvent("RequestPause");
                   app.ui.InteractionHandler.checkAndSet("modal");
@@ -382,14 +382,14 @@
           },
 
           {
-            name: "New Recording",
+            name: "Nova gravação",
             action: function (e) {
               app.fireEvent("RequestActionNewRec");
             },
           },
 
           {
-            name: "Save Draft Locally",
+            name: "Salvar rascunho localmente",
             clss: "pk_inact",
             action: function (e) {
               if (!app.engine.is_ready) return;
@@ -585,7 +585,7 @@
           },
 
           {
-            name: "Open Local Drafts",
+            name: "Abrir Rascunhos Locais",
             action: function (e) {
               var datenow = new Date();
               var time_ago = function (arg) {
@@ -933,7 +933,7 @@
         ],
       },
       {
-        name: "Edit",
+        name: "Editar",
         children: [
           {
             name: 'Undo <span class="pk_shrtct">Shft+Z</span>',
@@ -988,35 +988,35 @@
           },
 
           {
-            name: 'Play <span class="pk_shrtct">Space</span>',
+            name: 'Reproduzir <span class="pk_shrtct">Espaço</span>',
             action: function () {
               app.fireEvent("RequestPlay");
             },
           },
 
           {
-            name: "Stop",
+            name: "Parar",
             action: function () {
               app.fireEvent("RequestStop");
             },
           },
 
           {
-            name: 'Select All <span class="pk_shrtct">Shft+A</span>',
+            name: 'Selecionar tudo <span class="pk_shrtct">Shft+A</span>',
             action: function () {
               app.fireEvent("RequestSelect");
             },
           },
 
           {
-            name: 'Deselect All <span class="pk_shrtct">~</span>',
+            name: 'Desfazer seleção <span class="pk_shrtct">~</span>',
             action: function () {
               app.fireEvent("RequestDeselect");
             },
           },
 
           {
-            name: "Channel Info/Flip",
+            name: "Canal Info/Flip",
             action: function () {
               app.fireEvent("RequestActionFXUI_Flip");
             },
@@ -1033,10 +1033,10 @@
         ],
       },
       {
-        name: "Effects",
+        name: "Efeitos",
         children: [
           {
-            name: "Gain",
+            name: "Ganho",
             action: function () {
               app.fireEvent("RequestFXUI_Gain");
             },
@@ -1141,7 +1141,7 @@
           },
 
           {
-            name: "Remove Silence",
+            name: "Remover Silencio",
             action: function () {
               app.fireEvent("RequestActionFX_RemSil");
             },
@@ -1152,7 +1152,7 @@
         name: "View",
         children: [
           {
-            name: "Follow Cursor  &#10004;",
+            name: "Seguir cursor  &#10004;",
             action: function (obj) {
               app.fireEvent("RequestViewFollowCursorToggle");
             },
@@ -1172,7 +1172,7 @@
           },
 
           {
-            name: "Peak Separators &#10004;",
+            name: "Separador de picos &#10004;",
             action: function (obj) {
               app.fireEvent("RequestViewPeakSeparatorToggle");
             },
@@ -1189,7 +1189,7 @@
           },
 
           {
-            name: "Timeline &#10004;",
+            name: "Linha do tempo &#10004;",
             action: function (obj) {
               app.fireEvent("RequestViewTimelineToggle");
             },
@@ -1210,7 +1210,7 @@
           },
 
           {
-            name: "Frequency Analyser",
+            name: "Analisador de frequência",
             action: function (obj) {
               app.fireEvent("RequestShowFreqAn", "eq", [1]);
             },
@@ -1229,7 +1229,7 @@
           },
 
           {
-            name: "Spectrum Analyser",
+            name: "Analizador de espectro",
             action: function (obj) {
               app.fireEvent("RequestShowFreqAn", "sp", [1]);
             },
@@ -1248,7 +1248,7 @@
           },
 
           {
-            name: "Tempo Tools",
+            name: "Ferramenta de tempo",
             action: function (obj) {
               app.fireEvent("RequestActionTempo");
             },
@@ -1281,7 +1281,7 @@
         ],
       },
       {
-        name: "Help",
+        name: "Ajuda",
         children: [
           {
             name: "Store Offline Version",
@@ -1290,13 +1290,13 @@
                 function onUpdateReady(e) {
                   if (
                     confirm(
-                      "Would you like to refresh the page to load the newer version?"
+                      "Você gostaria de atualizar a página para carregar a versão mais recente?"
                     )
                   )
                     window.location.reload();
                 }
                 function downLoading(e) {
-                  OneUp("Downloading newer version", 1500);
+                  OneUp("Baixando uma nova versão", 1500);
                 }
 
                 window.applicationCache.onupdateready = onUpdateReady;
@@ -1363,14 +1363,14 @@
           },
 
           {
-            name: "About",
+            name: "Sobre",
             action: function () {
               window.open("/about.html");
             },
           },
 
           {
-            name: "See Welcome Message",
+            name: "Ver mensagem de boas vindas",
             action: function () {
               PKAudioEditor._deps.Wlc();
             },
@@ -1386,12 +1386,12 @@
           // 	name:'---'
           // },
 
-          {
-            name: "SourceCode on Github",
-            action: function () {
-              window.open("https://github.com/pkalogiros/audiomass");
-            },
-          },
+          // {
+          //   name: "SourceCode on Github",
+          //   action: function () {
+          //     window.open("https://github.com/pkalogiros/audiomass");
+          //   },
+          // },
         ],
       },
     ];
@@ -1719,7 +1719,8 @@
       false
     );
 
-    UI.el.appendChild(header);
+    // Menu superior
+    //UI.el.appendChild(header);
     // -
   }
 
@@ -2542,7 +2543,8 @@
         return;
       }
 
-      UI.fireEvent("RequestActionRecordToggle");
+      //UI.fireEvent("RequestActionRecordToggle");
+      UI.fireEvent("RequestActionNewRec");
       this.blur();
     };
 
@@ -2856,7 +2858,7 @@
     copy_btn.setAttribute("tabIndex", -1);
     copy_btn.className = "pk_btn icon-files-empty pk_inact";
     copy_btn.innerHTML = "<span>Copiar seleção (Shift + C)</span>";
-    actions.appendChild(copy_btn);
+    transport.appendChild(copy_btn);
 
     copy_btn.onclick = function () {
       UI.fireEvent("RequestActionCopy");
@@ -2872,7 +2874,7 @@
     paste_btn.setAttribute("focusable", "false");
     paste_btn.className = "pk_btn icon-file-text2 pk_inact";
     paste_btn.innerHTML = "<span>Colar Seleção (Shift + V)</span>";
-    actions.appendChild(paste_btn);
+    transport.appendChild(paste_btn);
 
     paste_btn.onclick = function () {
       UI.fireEvent("RequestActionPaste");
@@ -2883,7 +2885,7 @@
     cut_btn.setAttribute("tabIndex", -1);
     cut_btn.className = "pk_btn icon-scissors pk_inact";
     cut_btn.innerHTML = "<span>Recortar Seleção (Shift + X)</span>";
-    actions.appendChild(cut_btn);
+    transport.appendChild(cut_btn);
 
     cut_btn.onclick = function () {
       UI.fireEvent("RequestActionCut");
@@ -2894,7 +2896,7 @@
     silence_btn.setAttribute("tabIndex", -1);
     silence_btn.className = "pk_btn icon-silence";
     silence_btn.innerHTML = "<span>Inserir Silencio (Shift + N)</span>";
-    actions.appendChild(silence_btn);
+    transport.appendChild(silence_btn);
 
     UI.KeyHandler.addCallback(
       "KeyShiftN",
@@ -2986,8 +2988,10 @@
     // end
     toolbar.appendChild(btn_groups);
     btn_groups.appendChild(transport);
-    btn_groups.appendChild(actions);
-    toolbar.appendChild(selection);
+    //btn_groups.appendChild(actions);
+
+    //Toolbar seleção
+    //toolbar.appendChild(selection);
 
     container.appendChild(toolbar);
 
