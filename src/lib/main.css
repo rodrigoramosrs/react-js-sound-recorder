@@ -689,7 +689,7 @@ a {
 /* if max height < ... hide vertical buttons and position to 0... */
 
 .pk_wavescroll {
-  margin-bottom: 10px;
+  margin-bottom: 0px;
   height: 14px;
   border: 1px solid #222;
   background: #000;

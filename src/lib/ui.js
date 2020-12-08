@@ -2130,7 +2130,8 @@
       q.volumeGaugePeaker2.className = "pk_peaker";
     };
 
-    footer.appendChild(volume_parent);
+    //Wave part oculto
+    //footer.appendChild(volume_parent);
 
     // change temp message, it's pretty ugly #### TODO
     var ttmp = d.createElement("div");
