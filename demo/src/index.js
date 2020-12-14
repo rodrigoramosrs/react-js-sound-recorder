@@ -1,7 +1,11 @@
 import React, { Component } from "react";
 import { render } from "react-dom";
 //import "./style.css";
-import ReactSoundRecorder, { loadFromUrl, getAudioBuffer } from "../../src";
+import ReactSoundRecorder, {
+  loadFromUrl,
+  getAudioBuffer,
+  setLanguage,
+} from "../../src";
 
 class Demo extends Component {
   state = {
@@ -39,6 +43,10 @@ class Demo extends Component {
     link.click();
   };
 
+  mudarIdioma = (idioma) => {
+    setLanguage(idioma);
+  };
+
   render() {
     return (
       <div>
@@ -57,6 +65,27 @@ class Demo extends Component {
                 type="button"
                 value="Salvar Arquivo"
                 onClick={this.saveFile}
+              />
+            </p>
+            <p>
+              <input
+                type="button"
+                value="Mudar idioma para Portugues"
+                onClick={() => this.mudarIdioma("pt_br")}
+              />
+            </p>
+            <p>
+              <input
+                type="button"
+                value="Mudar idioma para Ingles"
+                onClick={() => this.mudarIdioma("en")}
+              />
+            </p>
+            <p>
+              <input
+                type="button"
+                value="Mudar idioma para Espanhol"
+                onClick={() => this.mudarIdioma("es")}
               />
             </p>
           </div>

@@ -1,3 +1,5 @@
+import { Translate as t } from "../i10n/translation_core";
+
 (function (w, d, PKAE) {
   "use strict";
 
@@ -46,7 +48,7 @@
           }, 12);
           app.stopListeningForName("RequestCancelModal");
 
-          OneUp("Carregamento Cancelado", 1350);
+          OneUp(t("Carregamento Cancelado"), 1350);
         });
 
         app.fireEvent("RequestZoomUI", 0);
@@ -60,7 +62,7 @@
       if (q.is_ready) {
         //  ----------------
         new PKSimpleModal({
-          title: "Open or append",
+          title: t("Abrir ou anexar"),
           clss: "pk_modal_anim pk_fnt10",
           ondestroy: function (q) {
             app.ui.InteractionHandler.on = false;
@@ -68,7 +70,7 @@
           },
           buttons: [
             {
-              title: "OPEN NEW",
+              title: t("ABRIR NOVO"),
               callback: function (q) {
                 wavesurfer.backend._add = 0;
                 func();
@@ -76,7 +78,7 @@
               },
             },
             {
-              title: "ADD IN EXISTING",
+              title: t("ADICIONAR AO EXISTENTE"),
               callback: function (q) {
                 wavesurfer.backend._add = 1;
                 func();
@@ -84,7 +86,7 @@
               },
             },
           ],
-          body: "<p>Append file to existing track?</p>",
+          body: "<p>" + t("Anexar o arquivo a trilha existente?") + "</p>",
           setup: function (q) {
             app.ui.InteractionHandler.checkAndSet("modal");
             app.ui.KeyHandler.addCallback(
@@ -164,7 +166,7 @@
               }, 12);
               app.stopListeningForName("RequestCancelModal");
 
-              OneUp("Carregamento Cancelado", 1350);
+              OneUp(t("Carregamento Cancelado"), 1350);
             });
 
             app.fireEvent("WillDownloadFile");
@@ -176,7 +178,7 @@
           if (q.is_ready) {
             //  ----------------
             new PKSimpleModal({
-              title: "Open or append",
+              title: t("Abrir ou anexar"),
               clss: "pk_modal_anim pk_fnt10",
               ondestroy: function (q) {
                 app.ui.InteractionHandler.on = false;
@@ -184,7 +186,7 @@
               },
               buttons: [
                 {
-                  title: "OPEN NEW",
+                  title: t("ABRIR NOVO"),
                   callback: function (q) {
                     wavesurfer.backend._add = 0;
                     func();
@@ -192,7 +194,7 @@
                   },
                 },
                 {
-                  title: "ADD IN EXISTING",
+                  title: t("ADICIONAR AO EXISTENTE"),
                   callback: function (q) {
                     wavesurfer.backend._add = 1;
                     func();
@@ -200,7 +202,7 @@
                   },
                 },
               ],
-              body: "<p>Append file to existing track?</p>",
+              body: "<p>" + t("Anexar o arquivo a trilha existente?") + "</p>",
               setup: function (q) {
                 app.ui.InteractionHandler.checkAndSet("modal");
                 app.ui.KeyHandler.addCallback(
@@ -272,7 +274,7 @@
             }, 12);
             app.stopListeningForName("RequestCancelModal");
 
-            OneUp("Carregamento Cancelado", 1380);
+            OneUp(t("Carregamento Cancelado"), 1380);
           }
         });
 
@@ -382,7 +384,7 @@
             }, 12);
             app.stopListeningForName("RequestCancelModal");
 
-            OneUp("Carregamento Cancelado", 1350);
+            OneUp(t("Carregamento Cancelado"), 1350);
           }
         });
 
@@ -438,7 +440,7 @@
       app.stopListeningForName("RequestCancelModal");
 
       setTimeout(function () {
-        OneUp("Carregado com sucesso");
+        OneUp(t("Carregado com sucesso"));
       }, 180);
 
       // check if the audio file is mono or stereo and rebuild both UI and audio engine accordingly...
@@ -1024,9 +1026,12 @@
       app.fireEvent("DidCut", cutbuffer);
 
       OneUp(
-        "Recortado :: " +
+        t("Recortado") +
+          " :: " +
           q.TrimTo(start, 2) +
-          " até " +
+          " " +
+          t("até") +
+          " " +
           q.TrimTo(start / 1 + end / 1, 2),
         1100
       );
@@ -1049,7 +1054,7 @@
       app.fireEvent("DidSetClipboard", 1);
       app.fireEvent("DidCopy", copybuffer);
 
-      OneUp("Trecho copiado");
+      OneUp(t("Trecho copiado"));
     });
 
     app.listenFor("RequestActionSilence", function (offset, silence_duration) {
@@ -1089,7 +1094,7 @@
 
       app.fireEvent("RequestSeekTo", dims[0] / wavesurfer.getDuration());
 
-      OneUp("Silencio inserido");
+      OneUp(t("Silêncio inserido"));
     });
 
     app.listenFor("RequestActionPaste", function () {
@@ -1137,7 +1142,7 @@
       }
       app.fireEvent("RequestSeekTo", new_seek);
 
-      OneUp("Copiado para " + dims[0].toFixed(2), 982);
+      OneUp(t("Colado para") + " " + dims[0].toFixed(2), 982);
     });
 
     var _sk = false;
@@ -1211,7 +1216,7 @@
           });
 
           app.fireEvent("RequestSeekTo", dims[0] / wavesurfer.getDuration());
-          OneUp("Audio Gravado " + dims[0].toFixed(2), 982);
+          OneUp(t("Audio Gravado") + " " + dims[0].toFixed(2), 982);
         },
         function () {
           // on start
@@ -1289,7 +1294,7 @@
       handleStateInline(start, end);
       AudioUtils.FX(start, end, AudioUtils.FXBank.HardLimit(val));
 
-      OneUp("Aplicado Hard Limit (fx)");
+      OneUp(t("Aplicado") + " Hard Limit (fx)");
     });
 
     app.listenFor("RequestActionFX_PARAMEQ", function (val) {
@@ -1323,7 +1328,7 @@
       handleStateInline(start, end);
       AudioUtils.FX(start, end, AudioUtils.FXBank.ParametricEQ(val));
 
-      OneUp("Aplicado Parametric EQ (fx)");
+      OneUp(t("Aplicado") + " Parametric EQ (fx)");
     });
     app.listenFor("RequestActionFX_PREVIEW_PARAMEQ", function (val) {
       if (!q.is_ready || !val) return;
@@ -1409,7 +1414,7 @@
       handleStateInline(start, end);
       AudioUtils.FX(start, end, AudioUtils.FXBank.Distortion(val));
 
-      OneUp("Aplicado Distortion (fx)");
+      OneUp(t("Aplicado") + " Distortion (fx)");
     });
 
     app.listenFor("RequestActionFX_PREVIEW_DELAY", function (val) {
@@ -1469,7 +1474,7 @@
       handleStateInline(start, end);
       AudioUtils.FX(start, end, AudioUtils.FXBank.Delay(val));
 
-      OneUp("Aplicado Delay (fx)");
+      OneUp(t("Aplicado") + " Delay (fx)");
     });
 
     app.listenFor("RequestActionFX_PREVIEW_REVERB", function (val) {
@@ -1529,7 +1534,7 @@
       handleStateInline(start, end);
       AudioUtils.FX(start, end, AudioUtils.FXBank.Reverb(val));
 
-      OneUp("Aplicado Reverb (fx)");
+      OneUp(t("Aplicado") + " Reverb (fx)");
     });
 
     app.listenFor("RequestActionFX_PREVIEW_COMPRESSOR", function (val) {
@@ -1590,7 +1595,7 @@
       handleStateInline(start, end);
       AudioUtils.FX(start, end, AudioUtils.FXBank.Compressor(val));
 
-      OneUp("Aplicado Compressor (fx)");
+      OneUp(t("Aplicado") + " Compressor (fx)");
     });
     app.listenFor("RequestActionFX_Normalize", function (val) {
       if (!q.is_ready) return;
@@ -1623,7 +1628,7 @@
       handleStateInline(start, end);
       AudioUtils.FX(start, end, AudioUtils.FXBank.Normalize(val));
 
-      OneUp("Aplicado Normalize");
+      OneUp(t("Aplicado") + " Normalize");
     });
 
     app.listenFor("RequestActionFX_Invert", function (val) {
@@ -1657,7 +1662,7 @@
       handleStateInline(start, end);
       AudioUtils.FX(start, end, AudioUtils.FXBank.Invert());
 
-      OneUp("Aplicado Invert");
+      OneUp(t("Aplicado") + " Invert");
     });
 
     app.listenFor("RequestActionFX_RemSil", function (val) {
@@ -1802,7 +1807,7 @@
         wavesurfer.drawBuffer();
       }, 40);
 
-      OneUp("Aplicado :: Remover Silencio");
+      OneUp(t("Aplicado") + " :: Remover Silencio");
     });
 
     var _compute_channels = function () {
@@ -1893,7 +1898,7 @@
         app.fireEvent("RequestSeekTo", 0.001);
       }
 
-      OneUp("Aplicado Channel Change: " + val);
+      OneUp(t("Aplicado") + " Channel Change: " + val);
     });
 
     app.listenFor("RequestActionFX_Reverse", function (val) {
@@ -1927,7 +1932,7 @@
       handleStateInline(start, end);
       AudioUtils.FX(start, end, AudioUtils.FXBank.Reverse());
 
-      OneUp("Aplicado Reverso");
+      OneUp(t("Aplicado") + " Reverse");
     });
     app.listenFor("RequestActionFX_FadeIn", function (val) {
       if (!q.is_ready) return;
@@ -1960,7 +1965,7 @@
       handleStateInline(start, end);
       AudioUtils.FX(start, end, AudioUtils.FXBank.FadeIn());
 
-      OneUp("Aplicado Fade In (fx)");
+      OneUp(t("Aplicado") + " Fade In (fx)");
     });
     app.listenFor("RequestActionFX_FadeOut", function (val) {
       if (!q.is_ready) return;
@@ -1993,7 +1998,7 @@
       handleStateInline(start, end);
       AudioUtils.FX(start, end, AudioUtils.FXBank.FadeOut());
 
-      OneUp("Aplicado Fade Out (fx)");
+      OneUp(t("Aplicado") + " Fade Out (fx)");
     });
 
     var fx_preview_debounce = null;
@@ -2076,7 +2081,7 @@
       handleStateInline(start, end);
       AudioUtils.FX(start, end, AudioUtils.FXBank.Gain(val));
 
-      OneUp("Aplicado Gain (fx)");
+      OneUp(t("Aplicado") + " Gain (fx)");
     });
 
     app.listenFor("RequestActionFX_PREVIEW_SPEED", function (val) {
@@ -2188,7 +2193,7 @@
 
         app.fireEvent("RequestSeekTo", start / wavesurfer.getDuration());
 
-        OneUp("Aplicado Speed (fx)");
+        OneUp(t("Aplicado") + " Speed (fx)");
 
         //				AudioUtils.Insert (new_offset, rendered_buffer);
 
@@ -2280,8 +2285,8 @@
         }
       }
 
-      if (undo) OneUp("Desfazendo " + state.desc);
-      else OneUp("Refazendo " + state.desc);
+      if (undo) OneUp(t("Desfazendo") + " " + state.desc);
+      else OneUp(t("Refazendo") + " " + state.desc);
     });
 
     // ---

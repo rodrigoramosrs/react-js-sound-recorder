@@ -1,3 +1,5 @@
+import { Translate as t } from "../i10n/translation_core";
+
 (function (w, d) {
   var _id = 0;
 
@@ -43,7 +45,7 @@
     el_bottom.className = "pk_noselect pk_modal_bottom";
     // -----------
     var a_cancel = d.createElement("a");
-    a_cancel.innerHTML = "CANCELAR";
+    a_cancel.innerHTML = t("CANCELAR");
     a_cancel.className = "pk_modal_cancel pk_modal_a_bottom";
     a_cancel.onclick = function () {
       q.Destroy();
@@ -366,7 +368,8 @@
           // now add preset edit button
           var edit_presets = d.createElement("a");
           edit_presets.className = "pk_sel_edt";
-          edit_presets.innerHTML = "...<span>Save or Modify preset</span>";
+          edit_presets.innerHTML =
+            "...<span>" + t("Salvar ou Modificar a predefinição") + "</span>";
           edit_presets.onclick = function () {
             app.fireEvent("RequestSavePreset");
           };

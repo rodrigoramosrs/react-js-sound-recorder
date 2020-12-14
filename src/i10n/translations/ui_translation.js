@@ -61,7 +61,7 @@ const ui_translation = {
   },
   "Nova gravação": {
     pt_br: "",
-    en: "",
+    en: "New recording",
     es: "",
   },
   "Salvar rascunho localmente": {

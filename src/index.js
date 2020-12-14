@@ -41,6 +41,7 @@ import "./lib/fonts/icomoon.ttf";
 import "./lib/fonts/icomoon.woff";
 
 var editor;
+const AudioRecorderID = "app";
 
 //var editor = PKAudioEditor.init("app");
 
@@ -50,15 +51,25 @@ function ReactSoundRecorder() {
     if (initialized) return;
     translationCore.Initialize({ language: "en" });
 
-    editor = PKAudioEditor.init("app");
+    editor = PKAudioEditor.init(AudioRecorderID);
     setInitialized(true);
   }, []);
 
   return (
     <div style={{ display: "inline-table", width: "100%" }}>
-      <div id="app" />
+      <div id={AudioRecorderID} />
     </div>
   );
+}
+
+export function setLanguage(language) {
+  translationCore.Initialize({ language: language });
+  let audioBuffer = getAudioBuffer();
+
+  document.getElementById(AudioRecorderID).innerHTML = "";
+  editor = PKAudioEditor.init(AudioRecorderID);
+
+  editor.engine.LoadArrayBuffer(new Blob([audioBuffer]));
 }
 
 export function loadFromUrl(url) {
@@ -76,6 +87,14 @@ export function loadFromFile(file) {
     return;
   }
   editor.engine.LoadFile(file);
+}
+
+export function loadFromSample(sample) {
+  if (!editor) {
+    alert("Gravador não incializado.");
+    return;
+  }
+  editor.engine.LoadSample(sample);
 }
 
 export function getAudioBuffer() {

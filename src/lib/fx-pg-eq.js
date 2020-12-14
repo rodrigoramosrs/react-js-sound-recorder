@@ -1,3 +1,5 @@
+import { Translate as t } from "../i10n/translation_core";
+
 (function (w, d, PKAE) {
   "use strict";
 
@@ -1647,11 +1649,11 @@
 
         DidStopPlay = function () {
           play_btn.classList.remove("pk_act");
-          play_btn.innerText = "Reproduzir Trilha";
+          play_btn.innerText = t("Reproduzir Trilha");
         };
         DidPlay = function () {
           play_btn.classList.add("pk_act");
-          play_btn.innerText = "Parar Trilha";
+          play_btn.innerText = t("Parar Trilha");
         };
         q.app.listenFor("DidStopPlay", DidStopPlay);
         q.app.listenFor("DidPlay", DidPlay);
@@ -1901,12 +1903,12 @@
         DidStopPlay = function () {
           is_playing = false;
           play_btn.classList.remove("pk_act");
-          play_btn.innerText = "Reproduzir Trilha";
+          play_btn.innerText = t("Reproduzir Trilha");
         };
         DidPlay = function () {
           is_playing = true;
           play_btn.classList.add("pk_act");
-          play_btn.innerText = "Parar Trilha";
+          play_btn.innerText = t("Parar Trilha");
         };
 
         q.app.listenFor("DidStopPlay", DidStopPlay);
@@ -2581,7 +2583,7 @@
     var x = new PKAudioFXModal(
       {
         id: filter_id,
-        title: "Nova gravação",
+        title: t("Nova gravação"),
 
         ondestroy: function (q) {
           // destroy audio...
@@ -2599,24 +2601,40 @@
         body:
           '<div class="pk_rec">' +
           '<div class="pk_row">' +
-          "<label>Dispositivos:</label>" +
+          "<label>" +
+          t("Dispositivos") +
+          ":</label>" +
           '<select style="max-width:220px"></select>' +
           "</div>" +
           '<div class="pk_row">' +
-          '<div style="float:left"><label>Volume</label>' +
+          '<div style="float:left"><label>' +
+          t("Volume") +
+          "</label>" +
           '<canvas width="200" height="10"></canvas></div>' +
-          '<div style="float:left;margin-left:20px;"><label>Tempo</label>' +
+          '<div style="float:left;margin-left:20px;"><label>' +
+          t("Tempo") +
+          "</label>" +
           '<span style="font-size: 24px;line-height: 15px;">0.0</span></div>' +
           '<div style="clear:both;height:0px"></div>' +
-          '<div><label>Waveform</label><canvas width="1000" height="200" style="image-rendering:pixelated;width:500px;height:24px;display:block;background:#000"></canvas></div>' +
+          "<div><label>" +
+          t("Waveform") +
+          '</label><canvas width="1000" height="200" style="image-rendering:pixelated;width:500px;height:24px;display:block;background:#000"></canvas></div>' +
           "</div>" +
           '<div class="pk_row">' +
-          '<a class="pk_tbsa pk_inact" style="text-align: center;">INICIAR GRAVAÇÃO</a>' +
-          '<a class="pk_tbsa pk_inact" style="margin-left: 24px; text-align: center;">PAUSAR</a>' +
+          '<a class="pk_tbsa pk_inact" style="text-align: center;">' +
+          t("INICIAR GRAVAÇÃO") +
+          "</a>" +
+          '<a class="pk_tbsa pk_inact" style="margin-left: 24px; text-align: center;">' +
+          t("PAUSAR") +
+          "</a>" +
           "</div>" +
           '<div class="pk_row">' +
-          '<a class="pk_tbsa" style="float:left;display:none;text-align: center;">ABRIR GRAVAÇÃO</a>' +
-          '<a class="pk_tbsa" style="float:left;display:none;margin-left: 24px; text-align: center;">ANEXAR A GRAVAÇÃO EXISTENTE</a>' +
+          '<a class="pk_tbsa" style="float:left;display:none;text-align: center;">' +
+          t("ABRIR GRAVAÇÃO") +
+          "</a>" +
+          '<a class="pk_tbsa" style="float:left;display:none;margin-left: 24px; text-align: center;">' +
+          t("ANEXAR A GRAVAÇÃO EXISTENTE") +
+          "</a>" +
           "</div>" +
           "</div>",
 
@@ -2945,7 +2963,7 @@
               stop();
 
               btn_pause.classList.add("pk_inact");
-              btn_start.innerText = "INICIAR GRAVAÇÃO";
+              btn_start.innerText = t("INICIAR GRAVAÇÃO");
 
               return;
             }
@@ -2987,7 +3005,7 @@
 
                 is_active = true;
                 btn_pause.classList.remove("pk_inact");
-                btn_start.innerText = "FINALIZAR GRAVAÇÃO";
+                btn_start.innerText = t("FINALIZAR GRAVAÇÃO");
                 script_processor.onaudioprocess = fetchBufferFunction;
 
                 draw_volume();
@@ -3001,7 +3019,7 @@
 
             is_paused = !is_paused;
 
-            btn_pause.innerText = is_paused ? "RETORNAR" : "PAUSAR";
+            btn_pause.innerText = is_paused ? t("RETORNAR") : t("PAUSAR");
           };
 
           btn_open.onclick = function () {
