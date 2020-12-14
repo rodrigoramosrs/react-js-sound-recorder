@@ -1,6 +1,9 @@
+const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
+
 module.exports = {
   type: "react-component",
   webpack: {
+    
     rules: {
       exclude: {
         test: [
@@ -18,6 +21,7 @@ module.exports = {
           "src/lib/dist/plugin/wavesurfer.regions.js",
         ],
         loader: "dumb-loader",
+        
       },
     },
   },
