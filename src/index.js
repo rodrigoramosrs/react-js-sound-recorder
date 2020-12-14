@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import audioBufferToWav from "./converter/audioBufferToWav";
+import translationCore, { Translate } from "./i10n/translation_core";
 
 import "./lib/oneup.js";
 
@@ -39,16 +40,6 @@ import "./lib/fonts/icomoon.svg";
 import "./lib/fonts/icomoon.ttf";
 import "./lib/fonts/icomoon.woff";
 
-// import "./lib/index-cache.html";
-// import "./lib/index.html";
-// import "./lib/eq.html";
-// import "./lib/sp.html";
-// import "./lib/about.html";
-
-//import "./lib/ico.png";
-
-// import "./bundle.all";
-
 var editor;
 
 //var editor = PKAudioEditor.init("app");
@@ -57,6 +48,7 @@ function ReactSoundRecorder() {
   const [initialized, setInitialized] = useState(false);
   useEffect(() => {
     if (initialized) return;
+    translationCore.Initialize({ language: "en" });
 
     editor = PKAudioEditor.init("app");
     setInitialized(true);
@@ -75,7 +67,6 @@ export function loadFromUrl(url) {
     return;
   }
 
-  debugger;
   editor.engine.LoadURL(url);
 }
 

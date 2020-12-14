@@ -1,3 +1,5 @@
+import { Translate } from "../i10n/translation_core";
+
 (function (w, d, PKAE) {
   "use strict";
 
@@ -87,7 +89,7 @@
 
     app.listenFor("ShowError", function (message) {
       new PKSimpleModal({
-        title: "Oops! Algo não está correto",
+        title: Translate("Oops! Algo não está correto"),
         clss: "pk_modal_anim",
         ondestroy: function (q) {
           app.ui.InteractionHandler.on = false;
@@ -121,10 +123,10 @@
   function _topbarConfig(app, ui) {
     return [
       {
-        name: "Arquivo",
+        name: Translate("Arquivo"),
         children: [
           {
-            name: "Exportar / Baixar",
+            name: Translate("Exportar / Baixar"),
             action: function () {
               new PKSimpleModal({
                 title: "Exportar / Baixar",
@@ -136,7 +138,7 @@
 
                 buttons: [
                   {
-                    title: "Export",
+                    title: "Exportar",
                     clss: "pk_modal_a_accpt",
                     callback: function (q) {
                       var input = q.el_body.getElementsByTagName("input")[0];
@@ -183,7 +185,9 @@
                   },
                 ],
                 body:
-                  '<div class="pk_row"><label for="k0">File Name</label>' +
+                  '<div class="pk_row"><label for="k0">' +
+                  Translate("Nome do arquivo") +
+                  "</label>" +
                   '<input style="min-width:250px" placeholder="mp3 filename" value="ramos-audio-output.mp3" ' +
                   'class="pk_txt" type="text" id="k0" /></div>' +
                   '<div class="pk_row" id="frmtex" style="padding-bottom:4px"><label style="display:inline">Format</label>' +
@@ -287,7 +291,7 @@
           },
 
           {
-            name: "Carregar do computador",
+            name: Translate("Carregar do computador"),
             type: "file",
             action: function (e) {
               app.fireEvent("RequestLoadLocalFile");
@@ -295,17 +299,17 @@
           },
 
           {
-            name: "Carregar arquivo exemplo",
+            name: Translate("Carregar arquivo exemplo"),
             action: function (e) {
               app.engine.LoadSample();
             },
           },
 
           {
-            name: "Carregar de uma URL",
+            name: Translate("Carregar de uma URL"),
             action: function (e) {
               new PKSimpleModal({
-                title: "Carregar audio de uma url remota",
+                title: Translate("Carregar audio de uma url remota"),
 
                 ondestroy: function (q) {
                   app.ui.InteractionHandler.on = false;
@@ -315,7 +319,7 @@
 
                 buttons: [
                   {
-                    title: "Carregar Conteúdo",
+                    title: Translate("Carregar Conteúdo"),
                     clss: "pk_modal_a_accpt",
                     callback: function (q) {
                       var input = q.el_body.getElementsByTagName("input")[0];
@@ -344,7 +348,7 @@
                         app.engine.LoadURL(value);
                         q.Destroy();
                       } else {
-                        OneUp("Url informada é inválida", 1100);
+                        OneUp(Translate("Url informada é inválida"), 1100);
                       }
                       // -
                     },
@@ -352,7 +356,9 @@
                 ],
                 body:
                   '<label for="k00">Informe a URL</label>' +
-                  '<input style="min-width:250px" placeholder="Porfavor informe uma URL" class="pk_txt" type="text" id="k00" />',
+                  '<input style="min-width:250px" placeholder="' +
+                  Trasnlate("Porfavor informe uma URL") +
+                  '" class="pk_txt" type="text" id="k00" />',
                 setup: function (q) {
                   app.fireEvent("RequestPause");
                   app.ui.InteractionHandler.checkAndSet("modal");
@@ -382,14 +388,14 @@
           },
 
           {
-            name: "Nova gravação",
+            name: Translate("Nova gravação"),
             action: function (e) {
               app.fireEvent("RequestActionNewRec");
             },
           },
 
           {
-            name: "Salvar rascunho localmente",
+            name: Translate("Salvar rascunho localmente"),
             clss: "pk_inact",
             action: function (e) {
               if (!app.engine.is_ready) return;
@@ -429,7 +435,7 @@
 
                 buttons: [
                   {
-                    title: "Save",
+                    title: Translate("Salvar"),
                     clss: "pk_modal_a_accpt",
                     callback: function (q) {
                       var type = "whole";
@@ -459,16 +465,25 @@
                 ],
 
                 body:
-                  "<p>Please choose source...</p>" +
+                  "<p>" +
+                  Translate("Por favor escolha a origem ...") +
+                  "</p>" +
                   '<div class="pk_row"><input type="radio" class="pk_check" id="sl1" name="rdslnc" checked value="whole">' +
-                  '<label style="vertical-align:top" for="sl1">Whole Track</label>' +
+                  '<label style="vertical-align:top" for="sl1">' +
+                  Translate("Onda inteira") +
+                  "</label>" +
                   '<input type="radio" class="pk_check"  id="sl2" name="rdslnc" value="sel">' +
-                  '<label style="vertical-align:top" class="pk_lblsel" for="sl2">Selection' +
+                  '<label style="vertical-align:top" class="pk_lblsel" for="sl2">' +
+                  Translate("Seleção") +
                   '<i style="display:block;font-size:11px;margin-top:-5px"></i></label>' +
                   '<input type="radio" class="pk_check"  id="sl3" name="rdslnc" value="copy">' +
-                  '<label style="vertical-align:top" class="pk_lblsel2" for="sl3">"Copy" clipboard/buffer</label></div>' +
+                  '<label style="vertical-align:top" class="pk_lblsel2" for="sl3">' +
+                  Translate('"Copiar" área de transferência/buffer') +
+                  "</label></div>" +
                   '<div class="pk_row"><label for="slk0">Draft Name</label>' +
-                  '<input style="min-width:250px" placeholder="(optional) filename" maxlength="100" ' +
+                  '<input style="min-width:250px" placeholder="' +
+                  Translate("(opcional) nome do arquivo") +
+                  '" maxlength="100" ' +
                   'class="pk_txt" type="text" id="slk0" /></div>',
 
                 setup: function (q) {
@@ -545,7 +560,7 @@
                   '" /></div>';
 
                 new PKSimpleModal({
-                  title: "Succesfully Stored",
+                  title: Translate("Guardado com Sucesso"),
 
                   ondestroy: function (q) {
                     app.ui.InteractionHandler.on = false;
@@ -554,7 +569,7 @@
 
                   buttons: [
                     {
-                      title: "OPEN IN NEW WINDOW",
+                      title: "ABRIR EM UMA NOVA JANELA",
                       callback: function (q) {
                         window.open(
                           window.location.pathname + "?local=" + name
@@ -565,7 +580,11 @@
                     },
                   ],
 
-                  body: "<p>Open in new window?</p>" + txt,
+                  body:
+                    "<p>" +
+                    Translate("Abrir em uma nova janela?") +
+                    "</p>" +
+                    txt,
                   setup: function (q) {
                     app.fireEvent("RequestPause");
                     app.fireEvent("RequestRegionClear");
@@ -585,7 +604,7 @@
           },
 
           {
-            name: "Abrir Rascunhos Locais",
+            name: Translate("Abrir Rascunhos Locais"),
             action: function (e) {
               var datenow = new Date();
               var time_ago = function (arg) {
@@ -620,7 +639,7 @@
                 fls.ListSessions(function (ret) {
                   var msg = "";
                   if (ret.length === 0) {
-                    msg += "No drafts found...";
+                    msg += Translate("Nenhum rascunho encontrado...");
                   } else {
                     for (var i = 0; i < ret.length; ++i) {
                       var curr = ret[i];
@@ -678,7 +697,9 @@
                         msg +=
                           "<a onclick=\"PKAudioEditor.fireEvent('LoadDraft','" +
                           curr.id +
-                          '\',1);" class="pk_lcla">Append to Current Track</a>';
+                          '\',1);" class="pk_lcla">' +
+                          Translate("Apendar a Trilha Atual") +
+                          "</a>";
                       }
                       msg +=
                         '<a class="pk_lcla" style="color:#ad2b2b" onclick="PKAudioEditor.fireEvent(\'LoadDraft\',\'' +
@@ -716,7 +737,7 @@
                   app.listenFor("_lclStart", set_act_btn);
 
                   modal = new PKSimpleModal({
-                    title: "Local Drafts",
+                    title: Translate("Rascunhos Locais"),
                     clss: "pk_bigger",
 
                     ondestroy: function (q) {
@@ -797,7 +818,9 @@
 
                       if (el) {
                         if (el.parentNode.children.length === 1) {
-                          el.parentNode.innerHTML = "No drafts found...";
+                          el.parentNode.innerHTML = Translate(
+                            "Nenhum rascunho encontrado..."
+                          );
                         } else el.parentNode.removeChild(el);
 
                         el = null;
@@ -876,12 +899,16 @@
                   // --- ask if we want to click the first one
                   if (app.engine.is_ready && !append) {
                     var mm = new PKSimpleModal({
-                      title: "Open in Existing?",
+                      title: Translate("Abrir no Existente?"),
                       body:
-                        "<div>Open in new window, or in the current one?</div>",
+                        "<div>" +
+                        Translate(
+                          "Abrir em uma nova janela, ou na janela atual?"
+                        ) +
+                        "</div>",
                       buttons: [
                         {
-                          title: "OPEN",
+                          title: Translate("ABRIR"),
                           clss: "pk_modal_a_accpt",
                           callback: function (q) {
                             overwrite();
@@ -890,7 +917,7 @@
                           },
                         },
                         {
-                          title: "OPEN IN NEW",
+                          title: Translate("ABRIR EM NOVA"),
                           clss: "pk_modal_a_accpt",
                           callback: function (q) {
                             window.open(
@@ -933,10 +960,11 @@
         ],
       },
       {
-        name: "Editar",
+        name: Translate("Editar"),
         children: [
           {
-            name: 'Undo <span class="pk_shrtct">Shft+Z</span>',
+            name:
+              Translate("Desfazer") + ' <span class="pk_shrtct">Shft+Z</span>',
             clss: "pk_inact",
             action: function () {
               app.fireEvent("StateRequestUndo");
@@ -947,11 +975,13 @@
                 function (undo_states, redo_states) {
                   if (undo_states.length === 0) {
                     obj.innerHTML =
-                      'Undo <span class="pk_shrtct">Shft+Z</span>';
+                      Translate("Desfazer") +
+                      ' <span class="pk_shrtct">Shft+Z</span>';
                     obj.classList.add("pk_inact");
                   } else {
                     obj.innerHTML =
-                      'Undo&nbsp;<i style="pointer-events:none">' +
+                      Translate("Desfazer") +
+                      '&nbsp;<i style="pointer-events:none">' +
                       undo_states[undo_states.length - 1].desc +
                       '</i><span class="pk_shrtct">Shft+Z</span>';
                     obj.classList.remove("pk_inact");
@@ -962,7 +992,8 @@
           },
 
           {
-            name: 'Redo <span class="pk_shrtct">Shft+Y</span>',
+            name:
+              Translate("Refazer") + ' <span class="pk_shrtct">Shft+Y</span>',
             clss: "pk_inact",
             action: function () {
               app.fireEvent("StateRequestRedo");
@@ -973,11 +1004,13 @@
                 function (undo_states, redo_states) {
                   if (redo_states.length === 0) {
                     obj.innerHTML =
-                      'Redo <span class="pk_shrtct">Shft+Y</span>';
+                      Translate("Refazer") +
+                      ' <span class="pk_shrtct">Shft+Y</span>';
                     obj.classList.add("pk_inact");
                   } else {
                     obj.innerHTML =
-                      'Redo&nbsp;<i style="pointer-events:none">' +
+                      Translate("Refazer") +
+                      '&nbsp;<i style="pointer-events:none">' +
                       redo_states[redo_states.length - 1].desc +
                       '</i><span class="pk_shrtct">Shft+Y</span>';
                     obj.classList.remove("pk_inact");
@@ -988,35 +1021,43 @@
           },
 
           {
-            name: 'Reproduzir <span class="pk_shrtct">Espaço</span>',
+            name:
+              Translate("Reproduzir") +
+              ' <span class="pk_shrtct">' +
+              Translate("Espaço") +
+              "</span>",
             action: function () {
               app.fireEvent("RequestPlay");
             },
           },
 
           {
-            name: "Parar",
+            name: Translate("Parar"),
             action: function () {
               app.fireEvent("RequestStop");
             },
           },
 
           {
-            name: 'Selecionar tudo <span class="pk_shrtct">Shft+A</span>',
+            name:
+              Translate("Selecionar tudo") +
+              ' <span class="pk_shrtct">Shft+A</span>',
             action: function () {
               app.fireEvent("RequestSelect");
             },
           },
 
           {
-            name: 'Desfazer seleção <span class="pk_shrtct">~</span>',
+            name:
+              Translate("Desfazer seleção") +
+              ' <span class="pk_shrtct">~</span>',
             action: function () {
               app.fireEvent("RequestDeselect");
             },
           },
 
           {
-            name: "Canal Info/Flip",
+            name: "Canal Info/Girar",
             action: function () {
               app.fireEvent("RequestActionFXUI_Flip");
             },
@@ -1036,7 +1077,7 @@
         name: "Efeitos",
         children: [
           {
-            name: "Ganho",
+            name: Translate("Ganho"),
             action: function () {
               app.fireEvent("RequestFXUI_Gain");
             },
@@ -1152,7 +1193,7 @@
         name: "View",
         children: [
           {
-            name: "Seguir cursor  &#10004;",
+            name: Translate("Seguir cursor") + " &#10004;",
             action: function (obj) {
               app.fireEvent("RequestViewFollowCursorToggle");
             },
@@ -1160,7 +1201,7 @@
               // perhaps read from stored settings?
 
               app.listenFor("DidViewFollowCursorToggle", function (val) {
-                var txt = "Follow Cursor";
+                var txt = Translate("Seguir cursor");
 
                 if (val) {
                   obj.innerHTML = txt + " &#10004;";
@@ -1172,13 +1213,13 @@
           },
 
           {
-            name: "Separador de picos &#10004;",
+            name: Translate("Separador de Picos") + " &#10004;",
             action: function (obj) {
               app.fireEvent("RequestViewPeakSeparatorToggle");
             },
             setup: function (obj) {
               app.listenFor("DidViewPeakSeparatorToggle", function (val) {
-                var txt = "Peak Separators";
+                var txt = Translate("Separador de Picos");
                 if (val) {
                   obj.innerHTML = txt + " &#10004;";
                 } else {
@@ -1189,13 +1230,13 @@
           },
 
           {
-            name: "Linha do tempo &#10004;",
+            name: Translate("Linha do tempo") + " &#10004;",
             action: function (obj) {
               app.fireEvent("RequestViewTimelineToggle");
             },
             setup: function (obj) {
               app.listenFor("DidViewTimelineToggle", function (val) {
-                var txt = "Timeline";
+                var txt = Translate("Linha do tempo");
                 if (val) {
                   obj.innerHTML = txt + " &#10004;";
                 } else {
@@ -1210,7 +1251,7 @@
           },
 
           {
-            name: "Analisador de frequência",
+            name: Translate("Analisador de Frequência"),
             action: function (obj) {
               app.fireEvent("RequestShowFreqAn", "eq", [1]);
             },
@@ -1218,7 +1259,7 @@
               app.listenFor("DidToggleFreqAn", function (url, val) {
                 if (url !== "eq") return;
 
-                var txt = "Frequency Analyser";
+                var txt = Translate("Analisador de Frequência");
                 if (val) {
                   obj.innerHTML = txt + " &#10004;";
                 } else {
@@ -1229,7 +1270,7 @@
           },
 
           {
-            name: "Analizador de espectro",
+            name: Translate("Analizador de Espectro"),
             action: function (obj) {
               app.fireEvent("RequestShowFreqAn", "sp", [1]);
             },
@@ -1237,7 +1278,7 @@
               app.listenFor("DidToggleFreqAn", function (url, val) {
                 if (url !== "sp") return;
 
-                var txt = "Spectrum Analyser";
+                var txt = Translate("Analizador de Espectro");
                 if (val) {
                   obj.innerHTML = txt + " &#10004;";
                 } else {
@@ -1248,7 +1289,7 @@
           },
 
           {
-            name: "Ferramenta de tempo",
+            name: Translate("Ferramenta de Tempo"),
             action: function (obj) {
               app.fireEvent("RequestActionTempo");
             },
@@ -1266,14 +1307,18 @@
           },
 
           {
-            name: 'Center to Cursor <span class="pk_shrtct">[Tab]</span>',
+            name:
+              Translate("Centralizar para o Cursor") +
+              ' <span class="pk_shrtct">[Tab]</span>',
             action: function (obj) {
               app.fireEvent("RequestViewCenterToCursor");
             },
           },
 
           {
-            name: 'Reset Zoom <span class="pk_shrtct">[0]</span>',
+            name:
+              Translate("Resetar o Zoom") +
+              ' <span class="pk_shrtct">[0]</span>',
             action: function (obj) {
               app.fireEvent("RequestZoomUI", 0);
             },
@@ -1281,22 +1326,24 @@
         ],
       },
       {
-        name: "Ajuda",
+        name: Translate("Ajuda"),
         children: [
           {
-            name: "Store Offline Version",
+            name: Translate("Guardar Versão Offline"),
             action: function () {
               if (window.location.href.indexOf("-cache") > 0) {
                 function onUpdateReady(e) {
                   if (
                     confirm(
-                      "Você gostaria de atualizar a página para carregar a versão mais recente?"
+                      Translate(
+                        "Você gostaria de atualizar a página para carregar a versão mais recente?"
+                      )
                     )
                   )
                     window.location.reload();
                 }
                 function downLoading(e) {
-                  OneUp("Baixando uma nova versão", 1500);
+                  OneUp(Translate("Baixando uma nova versão"), 1500);
                 }
 
                 window.applicationCache.onupdateready = onUpdateReady;
@@ -1314,11 +1361,12 @@
                 return;
               }
 
-              var message =
-                "This will open a new window that will try to store a local version in your browser"; // nicer text
+              var message = Translate(
+                "Isto irá abrir uma nova janela que tentará armazenar uma versão local em seu navegador"
+              ); // nicer text
 
               new PKSimpleModal({
-                title: "Open Offline Version?",
+                title: "Abrir Versão Offline?",
 
                 ondestroy: function (q) {
                   app.ui.InteractionHandler.on = false;
@@ -1327,7 +1375,7 @@
 
                 buttons: [
                   {
-                    title: "OPEN",
+                    title: Translate("ABRIR"),
                     callback: function (q) {
                       window.open("/index-cache.html");
                       q.Destroy();
@@ -1353,7 +1401,7 @@
             },
             setup: function (obj) {
               if (window.location.href.indexOf("-cache") > 0) {
-                obj.innerHTML = "Update Offline Version";
+                obj.innerHTML = Tranlsate("Atualizar Versão Offline");
               }
             },
           },
@@ -1363,20 +1411,20 @@
           },
 
           {
-            name: "Sobre",
+            name: Translate("Sobre"),
             action: function () {
               window.open("/about.html");
             },
           },
 
           {
-            name: "Ver mensagem de boas vindas",
+            name: Translate("Ver mensagem de boas vindas"),
             action: function () {
               PKAudioEditor._deps.Wlc();
             },
           },
           // {
-          // 	name   : 'About AudioMass',
+          // 	name   : 'About Rodrigo Ramos Editor',
           // 	action : function () {
           // 		window.open ('/about.html');
           // 	}
@@ -1877,7 +1925,8 @@
 
     var btn_zoom_in_v = d.createElement("button");
     btn_zoom_in_v.className = "pk_btn pk_zoom_in_v";
-    btn_zoom_in_v.innerHTML = "&#x2195; +<span>Zoom In Verticalmente</span>";
+    btn_zoom_in_v.innerHTML =
+      "&#x2195; +<span>" + Translate("Zoom In Verticalmente") + "</span>";
     btn_zoom_in_v.setAttribute("tabIndex", -1);
     btn_zoom_in_v.onclick = function () {
       app.fireEvent("RequestZoomUI", "v", -1);
@@ -1887,7 +1936,9 @@
     var btn_zoom_out_v = d.createElement("button");
     btn_zoom_out_v.className = "pk_btn pk_zoom_out_v";
     btn_zoom_out_v.innerHTML =
-      "&#x2195; &ndash;<span>Zoom Out Verticalmente</span>";
+      "&#x2195; &ndash;<span>" +
+      Translate("Zoom Out Verticalmente") +
+      "</span>";
     btn_zoom_out_v.setAttribute("tabIndex", -1);
     btn_zoom_out_v.onclick = function () {
       app.fireEvent("RequestZoomUI", "v", 1);
@@ -2137,15 +2188,21 @@
     var ttmp = d.createElement("div");
     ttmp.className = "pk_tmpMsg";
     ttmp.innerHTML =
-      "Arraste e solte um arquivo de audio nessa janela, ou clique " +
+      Translate(
+        "Arraste e solte um arquivo de audio nessa janela, ou clique "
+      ) +
       '<a style="white-space:nowrap;border:1px solid;border-radius:23px;padding:5px 18px;font-size:0.94em;margin-left:5px" ' +
-      'onclick="PKAudioEditor.engine.LoadSample()">aqui para usar um exemplo</a>';
+      'onclick="PKAudioEditor.engine.LoadSample()">' +
+      Translate("aqui para usar um exemplo") +
+      "</a>";
     main_audio_view.appendChild(ttmp);
 
     var ttmp2 = d.createElement("div");
     ttmp2.className = "pk_tmpMsg2";
     ttmp2.innerHTML =
-      '<span>Por favor aguarde...</span><div class="pk_mload"><div></div></div>' +
+      "<span>" +
+      Translate("Por favor aguarde...") +
+      '</span><div class="pk_mload"><div></div></div>' +
       '<div class="pk_prc"><span>0%</span>' +
       '<button tabIndex="-1" class="pk_btn" ' +
       "onclick=\"PKAudioEditor.fireEvent('RequestCancelModal');\">cancelar</button></div>";
@@ -2182,7 +2239,12 @@
     // play button
     var btn_stop = d.createElement("button");
     btn_stop.setAttribute("tabIndex", -1);
-    btn_stop.innerHTML = "<span>Parar reprodução (Espaço)</span>";
+    btn_stop.innerHTML =
+      "<span>" +
+      Translate("Parar reprodução") +
+      " (" +
+      Translate("Espaço") +
+      ")</span>";
     btn_stop.className = "pk_btn pk_stop icon-stop2";
     btn_stop.onclick = function () {
       UI.fireEvent("RequestStop");
@@ -2192,7 +2254,7 @@
     var btn_play = d.createElement("button");
     btn_play.setAttribute("tabIndex", -1);
     btn_play.className = "pk_btn pk_play icon-play3";
-    btn_play.innerHTML = "<span>Play (Espaço)</span>";
+    btn_play.innerHTML = "<span>Play (" + Translate("Espaço") + ")</span>";
     transport.appendChild(btn_play);
     btn_play.onclick = function () {
       UI.fireEvent("RequestPlay");
@@ -2208,7 +2270,12 @@
     var btn_pause = d.createElement("button");
     btn_pause.setAttribute("tabIndex", -1);
     btn_pause.className = "pk_btn pk_pause icon-pause2";
-    btn_pause.innerHTML = "<span>Pausar (Shift+Espaço)</span>";
+    btn_pause.innerHTML =
+      "<span>" +
+      Translate("Pausar") +
+      " (Shift+" +
+      Translate("Espaço") +
+      ")</span>";
     transport.appendChild(btn_pause);
     btn_pause.onclick = function () {
       UI.fireEvent("RequestPause");
@@ -2218,7 +2285,7 @@
     var btn_loop = d.createElement("button");
     btn_loop.setAttribute("tabIndex", -1);
     btn_loop.className = "pk_btn pk_loop icon-loop";
-    btn_loop.innerHTML = "<span>Marcar Loop (L)</span>";
+    btn_loop.innerHTML = "<span>" + Translate("Marcar Loop") + " (L)</span>";
     transport.appendChild(btn_loop);
     btn_loop.onclick = function () {
       UI.fireEvent("RequestSetLoop");
@@ -2310,7 +2377,8 @@
     var btn_front_jump = d.createElement("button");
     btn_front_jump.setAttribute("tabIndex", -1);
     btn_front_jump.className = "pk_btn pk_front_jump icon-forward3";
-    btn_front_jump.innerHTML = "<span>Avançar (seta direita)</span>";
+    btn_front_jump.innerHTML =
+      "<span>" + Translate("Avançar (seta direita)") + "</span>";
     transport.appendChild(btn_front_jump);
 
     var btn_frnt_focus = false;
@@ -2514,7 +2582,9 @@
     btn_back_total.setAttribute("tabIndex", -1);
     btn_back_total.className = "pk_btn icon-previous2";
     btn_back_total.innerHTML =
-      "<span>Retornar ao inicio (Shift + seta para esquerda)</span>";
+      "<span>" +
+      Translate("Retornar ao inicio (Shift + seta para esquerda)") +
+      "</span>";
     transport.appendChild(btn_back_total);
     btn_back_total.onclick = function () {
       UI.fireEvent("RequestRegionClear");
@@ -2526,7 +2596,9 @@
     btn_front_total.setAttribute("tabIndex", -1);
     btn_front_total.className = "pk_btn icon-next2";
     btn_front_total.innerHTML =
-      "<span>Avançar para o fim (Shift + seta para direita)</span>";
+      "<span>" +
+      Translate("Avançar para o fim (Shift + seta para direita)") +
+      "</span>";
     btn_front_total.onclick = function () {
       UI.fireEvent("RequestRegionClear");
       UI.fireEvent("RequestSeekTo", 0.996);
@@ -2638,9 +2710,9 @@
       );
 
       var main_context = PKAudioEditor._deps.ContextMenu(avv);
-
+      var Tranlsate = window.Translate;
       main_context.addOption(
-        "Select Visible View",
+        Tranlsate("Selecione a vista visível"),
         function (e, x, i) {
           UI.fireEvent("RequestRegionSet");
         },
@@ -2648,7 +2720,7 @@
       );
 
       main_context.addOption(
-        "Reset Zoom",
+        Translate("Redefinir zoom"),
         function (e) {
           UI.fireEvent("RequestZoomUI", 0);
         },
@@ -2656,7 +2728,7 @@
       );
 
       main_context.addOption(
-        "Set Volume/Gain",
+        Translate("Definir Volume/Ganho"),
         function (e) {
           UI.fireEvent("RequestFXUI_Gain");
         },
@@ -2664,7 +2736,7 @@
       );
 
       main_context.addOption(
-        "Copy",
+        Translate("Copiar"),
         function (e) {
           var region = PKAudioEditor.engine.wavesurfer.regions.list[0];
           if (!region) return;
@@ -2674,7 +2746,7 @@
         false
       );
       main_context.addOption(
-        "Paste",
+        Translate("Colar"),
         function (e) {
           if (!copable) return;
           UI.fireEvent("RequestActionPaste");
@@ -2682,7 +2754,7 @@
         false
       );
       main_context.addOption(
-        "Cut",
+        Translate("Recortar"),
         function (e) {
           var region = PKAudioEditor.engine.wavesurfer.regions.list[0];
           if (!region) return;
@@ -2692,7 +2764,7 @@
         false
       );
       main_context.addOption(
-        "Insert Silence",
+        Translate("Inserir Silêncio"),
         function (e) {
           UI.fireEvent("RequestFXUI_Silence", 0); // #### call effect
         },
@@ -2918,10 +2990,18 @@
     selection.className = "pk_selection";
     selection.innerHTML =
       '<div class="pk_sellist">' +
-      '<span class="pk_title">Seleção:</span>' +
-      '<div><span class="title">Inicio:</span><span class="s_s pk_dat">-</span></div>' +
-      '<div><span class="title">Fim:</span><span class="s_e pk_dat">-</span></div>' +
-      '<div><span  class="title">Duração:</span><span class="s_d pk_dat">-</span></div>' +
+      '<span class="pk_title">' +
+      Translate("Seleção") +
+      ":</span>" +
+      '<div><span class="title">' +
+      Translate("Início") +
+      ':</span><span class="s_s pk_dat">-</span></div>' +
+      '<div><span class="title">' +
+      Translate("Fim") +
+      ':</span><span class="s_e pk_dat">-</span></div>' +
+      '<div><span  class="title">' +
+      Translate("Duração") +
+      ':</span><span class="s_d pk_dat">-</span></div>' +
       "</div>";
 
     var btn_clear_selection = d.createElement("button");
