@@ -11,7 +11,7 @@ import { Translate } from "../i10n/translation_core";
     this.el = app.el;
 
     // if mobile add proper class
-    this.el.className += " pk_app " + (app.isMobile ? " pk_mob" : "");
+    this.el.className += " pk_app "; //+ (app.isMobile ? " pk_mob" : "");
 
     // hold refferences to the event functions
     this.fireEvent = app.fireEvent;
@@ -66,6 +66,7 @@ import { Translate } from "../i10n/translation_core";
       },
     };
 
+    /*
     if (app.isMobile) {
       d.body.className = "pk_stndln";
       var fxd = d.createElement("div");
@@ -75,7 +76,7 @@ import { Translate } from "../i10n/translation_core";
       d.body.appendChild(fxd);
 
       _makeMobileScroll(this);
-    }
+    }*/
 
     this.KeyHandler = new app._deps.keyhandler(this); // initializing keyhandler
     this.TopHeader = new _makeUITopHeader(_topbarConfig(app), this); // topmost menu
@@ -2207,9 +2208,10 @@ import { Translate } from "../i10n/translation_core";
       '<button tabIndex="-1" class="pk_btn" ' +
       "onclick=\"PKAudioEditor.fireEvent('RequestCancelModal');\">cancelar</button></div>";
 
-    d.body.appendChild(ttmp2);
+    //d.body.appendChild(ttmp2);
+    UI.el.appendChild(ttmp2);
     UI.loaderEl = ttmp2;
-
+    debugger;
     UI.listenFor("WillDownloadFile", function () {
       UI.loaderEl.classList.add("pk_act");
       UI.loaderEl.getElementsByTagName("span")[1].style.display = "none";
