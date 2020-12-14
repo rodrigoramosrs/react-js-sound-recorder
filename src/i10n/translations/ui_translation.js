@@ -1,62 +1,67 @@
 const ui_translation = {
   "Oops! Algo não está correto": {
     pt_br: "",
-    en: "",
+    en: "Oops! Something is not correct",
     es: "",
   },
   Arquivo: {
     pt_br: "",
-    en: "",
+    en: "File",
+    es: "",
+  },
+  Gravar: {
+    pt_br: "",
+    en: "Record",
     es: "",
   },
   "Exportar / Baixar": {
     pt_br: "",
-    en: "",
+    en: "Export / Download",
     es: "",
   },
   Exportar: {
     pt_br: "",
-    en: "",
+    en: "Export",
     es: "",
   },
   "Nome do arquivo": {
     pt_br: "",
-    en: "",
+    en: "File Name",
     es: "",
   },
   "Carregar do computador": {
     pt_br: "",
-    en: "",
+    en: "Load from computer",
     es: "",
   },
   "Carregar arquivo exemplo": {
     pt_br: "",
-    en: "",
+    en: "Load an example file",
     es: "",
   },
   "Carregar de uma URL": {
     pt_br: "",
-    en: "",
+    en: "Load from URL",
     es: "",
   },
   "Carregar audio de uma url remota": {
     pt_br: "",
-    en: "",
+    en: "Load audio from a remote URL",
     es: "",
   },
   "Carregar Conteúdo": {
     pt_br: "",
-    en: "",
+    en: "Load Content",
     es: "",
   },
   "Url informada é inválida": {
     pt_br: "",
-    en: "",
+    en: "Invalid URL",
     es: "",
   },
   "Porfavor informe uma URL": {
     pt_br: "",
-    en: "",
+    en: "Please, insert a URL",
     es: "",
   },
   "Nova gravação": {
@@ -66,17 +71,17 @@ const ui_translation = {
   },
   "Salvar rascunho localmente": {
     pt_br: "",
-    en: "",
+    en: "Save draft localy",
     es: "",
   },
   Salvar: {
     pt_br: "",
-    en: "",
+    en: "Save",
     es: "",
   },
   "Por favor escolha a origem ...": {
     pt_br: "",
-    en: "",
+    en: "Please, chose source ...",
     es: "",
   },
   "Onda inteira": {
@@ -92,7 +97,7 @@ const ui_translation = {
   //oi
   "Arraste e solte um arquivo de audio nessa janela, ou clique ": {
     pt_br: "",
-    en: "",
+    en: "Drag and drop an audio file into that window, or click",
     es: "",
   },
   Seleção: {
@@ -122,7 +127,7 @@ const ui_translation = {
   },
   "Abrir Rascunhos Locais": {
     pt_br: "",
-    en: "",
+    en: "Open Local Drafts",
     es: "",
   },
   "Nenhum rascunho encontrado...": {
@@ -130,7 +135,7 @@ const ui_translation = {
     en: "No drafts found...",
     es: "",
   },
-  "Apendar a Trilha Atual": {
+  "Anexar a Trilha Atual": {
     pt_br: "",
     en: "Append to Current Track",
     es: "",
@@ -265,13 +270,13 @@ const ui_translation = {
   },
   "Você gostaria de atualizar a página para carregar a versão mais recente?": {
     pt_br: "",
-    en: "",
+    en: "Would you like to update a page to load the latest version?",
     es: "",
   },
 
   "Baixando uma nova versão": {
     pt_br: "",
-    en: "",
+    en: "Downloading a new version",
     es: "",
   },
   "Isto irá abrir uma nova janela que tentará armazenar uma versão local em seu navegador": {
@@ -307,22 +312,22 @@ const ui_translation = {
   },
   "Zoom Out Verticalmente": {
     pt_br: "",
-    en: "",
+    en: "Zoom Out Verticaly",
     es: "",
   },
   "aqui para usar um exemplo": {
     pt_br: "",
-    en: "",
+    en: "here to use an example",
     es: "",
   },
   "Por favor aguarde...": {
     pt_br: "",
-    en: "",
+    en: "Please wait...",
     es: "",
   },
   "Parar reprodução": {
     pt_br: "",
-    en: "",
+    en: "Stop playback",
     es: "",
   },
 
@@ -338,17 +343,17 @@ const ui_translation = {
   },
   "Avançar (seta direita)": {
     pt_br: "",
-    en: "",
+    en: "Forward (right arrow)",
     es: "",
   },
   "Retornar ao inicio (Shift + seta para esquerda)": {
     pt_br: "",
-    en: "",
+    en: "Return to the beginning (Shift + left arrow)",
     es: "",
   },
   "Avançar para o fim (Shift + seta para direita)": {
     pt_br: "",
-    en: "",
+    en: "Move forward (Shift + right arrow)",
     es: "",
   },
   "Selecione a vista visível": {

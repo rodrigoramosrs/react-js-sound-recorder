@@ -11,7 +11,7 @@ import { Translate } from "../i10n/translation_core";
     this.el = app.el;
 
     // if mobile add proper class
-    this.el.className += " pk_app pk_mob" + (app.isMobile ? " pk_mob" : "");
+    this.el.className += " pk_app " + (app.isMobile ? " pk_mob" : "");
 
     // hold refferences to the event functions
     this.fireEvent = app.fireEvent;
@@ -698,7 +698,7 @@ import { Translate } from "../i10n/translation_core";
                           "<a onclick=\"PKAudioEditor.fireEvent('LoadDraft','" +
                           curr.id +
                           '\',1);" class="pk_lcla">' +
-                          Translate("Apendar a Trilha Atual") +
+                          Translate("Anexar a Trilha Atual") +
                           "</a>";
                       }
                       msg +=
@@ -2609,7 +2609,7 @@ import { Translate } from "../i10n/translation_core";
     var btn_rec = d.createElement("button");
     btn_rec.setAttribute("tabIndex", -1);
     btn_rec.className = "pk_btn icon-rec";
-    btn_rec.innerHTML = "<span>Gravar (R)</span>";
+    btn_rec.innerHTML = "<span>" + Translate("Gravar") + " (R)</span>";
     btn_rec.onclick = function () {
       if (this.getAttribute("disabled") === "disabled") {
         this.blur();

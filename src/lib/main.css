@@ -462,7 +462,7 @@ a {
 }
 
 .pk_ftr {
-  padding: 2px 14px 8px 14px;
+  padding: 2px 7px 8px 7px;
 }
 .pk_volpar {
   position: relative;
@@ -601,15 +601,15 @@ a {
 
 .pk_pan_left {
   position: absolute;
-  left: 7px;
+  left: 5px;
   top: 0%;
-  height: 50%;
+  height: 25%;
 }
 .pk_pan_right {
   position: absolute;
-  left: 7px;
+  left: 5px;
   top: 50%;
-  height: 50%;
+  height: 25%;
 }
 
 .pk_pan_btn {
