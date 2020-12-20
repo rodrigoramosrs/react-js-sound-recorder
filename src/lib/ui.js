@@ -2211,7 +2211,7 @@ import { Translate } from "../i10n/translation_core";
     //d.body.appendChild(ttmp2);
     UI.el.appendChild(ttmp2);
     UI.loaderEl = ttmp2;
-    debugger;
+
     UI.listenFor("WillDownloadFile", function () {
       UI.loaderEl.classList.add("pk_act");
       UI.loaderEl.getElementsByTagName("span")[1].style.display = "none";

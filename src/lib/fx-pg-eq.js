@@ -2580,6 +2580,13 @@ import { Translate as t } from "../i10n/translation_core";
       audio_context = null;
     };
 
+    var hideShowRecorder = function (hide) {
+      debugger;
+      //app.el.hidden = hide;
+      app.el.style.visibility = hide ? "hidden" : "visible";
+      app.el.style.position = hide ? "absolute" : "";
+    };
+
     var x = new PKAudioFXModal(
       {
         id: filter_id,
@@ -2596,39 +2603,44 @@ import { Translate as t } from "../i10n/translation_core";
           app.ui.KeyHandler.removeCallback(modal_esc_key);
 
           app.fireEvent("RequestStop");
+          hideShowRecorder(false);
+          q.el.remove();
+          debugger;
         },
 
         body:
-          '<div class="pk_rec">' +
-          '<div class="pk_row">' +
+          '<div class="pk_rec" style="padding-top: 8px">' +
+          '<div class="pk_row" style="display: flex; padding-top: 4px; margin-bottom: 2px; padding-bottom: 4px;">' +
           "<label>" +
           t("Dispositivos") +
           ":</label>" +
-          '<select style="max-width:220px"></select>' +
-          "</div>" +
-          '<div class="pk_row">' +
-          '<div style="float:left"><label>' +
+          '<select style="max-width:220px; height: 16px"></select>' +
+          '<div style="float:left; display:flex; margin-left: 12px;"><label>' +
           t("Volume") +
+          " :" +
           "</label>" +
           '<canvas width="200" height="10"></canvas></div>' +
-          '<div style="float:left;margin-left:20px;"><label>' +
-          t("Tempo") +
-          "</label>" +
-          '<span style="font-size: 24px;line-height: 15px;">0.0</span></div>' +
-          '<div style="clear:both;height:0px"></div>' +
-          "<div><label>" +
-          t("Waveform") +
-          '</label><canvas width="1000" height="200" style="image-rendering:pixelated;width:500px;height:24px;display:block;background:#000"></canvas></div>' +
           "</div>" +
-          '<div class="pk_row">' +
-          '<a class="pk_tbsa pk_inact" style="text-align: center;">' +
+          '<div class="pk_row" style="display:flex; padding-top: 4px; margin-bottom: 2px; padding-bottom: 4px;">' +
+          "<label >" +
+          t("Waveform") +
+          " :" +
+          '</label><canvas width="1000" height="200" style="image-rendering:pixelated;width:200px;height:16px;display:block;background:#000"></canvas>' +
+          "<label style='margin-left: 16px'>" +
+          t("Tempo") +
+          " :" +
+          "</label >" +
+          '<span style="font-size: 24px;line-height: 15px;">0.0</span>' +
+          "</div>" +
+          '<div class="pk_row" style="padding-top: 4px; margin-bottom: 2px; padding-bottom: 4px;">' +
+          '<a class="pk_tbsa pk_inact" style="text-align: center; padding: 4px 0;">' +
           t("INICIAR GRAVAÇÃO") +
           "</a>" +
-          '<a class="pk_tbsa pk_inact" style="margin-left: 24px; text-align: center;">' +
+          '<a class="pk_tbsa pk_inact" style="margin-left: 24px; text-align: center; ; padding: 4px 0;">' +
           t("PAUSAR") +
           "</a>" +
           "</div>" +
-          '<div class="pk_row">' +
+          '<div class="pk_row" style="display:none">' +
           '<a class="pk_tbsa" style="float:left;display:none;text-align: center;">' +
           t("ABRIR GRAVAÇÃO") +
           "</a>" +
@@ -2945,6 +2957,50 @@ import { Translate as t } from "../i10n/translation_core";
               btn_add.style.display = "block";
             }
           };
+
+          var btnOpenClick = function () {
+            if (debounce) {
+              return;
+            }
+
+            debounce = true;
+            setTimeout(function () {
+              debounce = false;
+            }, 150);
+
+            app.engine.wavesurfer.backend._add = 0;
+            app.engine.LoadDB({
+              samplerate: sample_rate,
+              data: [newbuff.buffer],
+            });
+
+            // ----
+            q.Destroy();
+          };
+
+          var btnAppendClick = function () {
+            if (debounce) {
+              return;
+            }
+
+            debounce = true;
+            setTimeout(function () {
+              debounce = false;
+            }, 150);
+
+            app.engine.wavesurfer.backend._add = 1;
+            app.engine.LoadDB({
+              samplerate: sample_rate,
+              data: [newbuff.buffer],
+            });
+
+            // ----
+            q.Destroy();
+          };
+
+          btn_add.onclick = function () {
+            btnAppendClick();
+          };
           // ---
 
           btn_start.onclick = function () {
@@ -2964,6 +3020,10 @@ import { Translate as t } from "../i10n/translation_core";
 
               btn_pause.classList.add("pk_inact");
               btn_start.innerText = t("INICIAR GRAVAÇÃO");
+              setTimeout(function () {
+                if (!app.engine.is_ready) btnOpenClick();
+                else btnAppendClick();
+              }, 270);
 
               return;
             }
@@ -3023,43 +3083,7 @@ import { Translate as t } from "../i10n/translation_core";
           };
 
           btn_open.onclick = function () {
-            if (debounce) {
-              return;
-            }
-
-            debounce = true;
-            setTimeout(function () {
-              debounce = false;
-            }, 150);
-
-            app.engine.wavesurfer.backend._add = 0;
-            app.engine.LoadDB({
-              samplerate: sample_rate,
-              data: [newbuff.buffer],
-            });
-
-            // ----
-            q.Destroy();
-          };
-
-          btn_add.onclick = function () {
-            if (debounce) {
-              return;
-            }
-
-            debounce = true;
-            setTimeout(function () {
-              debounce = false;
-            }, 150);
-
-            app.engine.wavesurfer.backend._add = 1;
-            app.engine.LoadDB({
-              samplerate: sample_rate,
-              data: [newbuff.buffer],
-            });
-
-            // ----
-            q.Destroy();
+            btnOpenClick();
           };
 
           // ---
@@ -3077,8 +3101,12 @@ import { Translate as t } from "../i10n/translation_core";
       },
       app
     );
-
-    x.Show();
+    debugger;
+    hideShowRecorder(true);
+    debugger;
+    x.el.getElementsByClassName("pk_modal_title")[0].remove();
+    app.el.parentElement.appendChild(x.el);
+    //x.Show();
   };
 
   PKAudioEditor._deps.FxREC = RecModal;

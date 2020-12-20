@@ -56,20 +56,23 @@ function ReactSoundRecorder() {
   }, []);
 
   return (
-    <div style={{ display: "inline-table", width: "100%" }}>
-      <div id={AudioRecorderID} />
-    </div>
+    <div
+      style={{ display: "inline-table", width: "100%" }}
+      id={AudioRecorderID}
+    />
   );
 }
 
 export function setLanguage(language) {
   translationCore.Initialize({ language: language });
-  let audioBuffer = getAudioBuffer();
+
+  let audioBuffer;
+  if (editor.engine.is_ready) audioBuffer = getAudioBuffer();
 
   document.getElementById(AudioRecorderID).innerHTML = "";
   editor = PKAudioEditor.init(AudioRecorderID);
 
-  editor.engine.LoadArrayBuffer(new Blob([audioBuffer]));
+  if (audioBuffer) editor.engine.LoadArrayBuffer(new Blob([audioBuffer]));
 }
 
 export function loadFromUrl(url) {

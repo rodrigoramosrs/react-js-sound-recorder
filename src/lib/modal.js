@@ -118,7 +118,11 @@ import { Translate as t } from "../i10n/translation_core";
       this.ondestroy = null;
     }
     this.els = null;
-    d.body.removeChild(this.el_back);
+    try {
+      d.body.removeChild(this.el_back);
+    } catch (ex) {
+      console.log("Cannot remove Modal");
+    }
   };
 
   // Extended modal

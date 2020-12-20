@@ -50,7 +50,7 @@ class Demo extends Component {
   render() {
     return (
       <div>
-        <div style={{ padding: "12px", height: "300px" }}>
+        <div style={{ padding: "12px" }}>
           <h1>React Audio Recorder</h1>
           <div>
             <p>
@@ -89,10 +89,9 @@ class Demo extends Component {
               />
             </p>
           </div>
-
-          <div style={{ height: "200px", position: "relative" }}>
-            <ReactSoundRecorder />
-          </div>
+        </div>
+        <div style={{ width: "600px", position: "relative" }}>
+          <ReactSoundRecorder />
         </div>
       </div>
     );

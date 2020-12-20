@@ -920,7 +920,7 @@ a {
   display: block;
   box-shadow: 0 0 20px #333;
   min-width: 344px;
-  min-height: 168px;
+  min-height: 150px;
 
   animation: pk_shw 0.2s ease-out 0ms 1;
 
