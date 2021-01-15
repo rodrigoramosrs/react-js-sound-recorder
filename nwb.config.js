@@ -1,4 +1,4 @@
-const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
+// const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 
 module.exports = {
   type: "react-component",

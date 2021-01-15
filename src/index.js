@@ -26,19 +26,19 @@ import "./lib/keys.js";
 import "./lib/local.js";
 import "./lib/lz4-block-codec-wasm.js";
 import "./lib/lzma.js";
-import "./lib/main.css";
+// import "./lib/main.css";
 import "./lib/modal.js";
 
 import "./lib/state.js";
 import "./lib/ui-fx.js";
 import "./lib/ui.js";
 
-import "./lib/welcome.js";
+// import "./lib/welcome.js";
 
-import "./lib/fonts/icomoon.eot";
-import "./lib/fonts/icomoon.svg";
-import "./lib/fonts/icomoon.ttf";
-import "./lib/fonts/icomoon.woff";
+// import "./lib/fonts/icomoon.eot";
+// import "./lib/fonts/icomoon.svg";
+// import "./lib/fonts/icomoon.ttf";
+// import "./lib/fonts/icomoon.woff";
 
 var editor;
 const AudioRecorderID = "app";

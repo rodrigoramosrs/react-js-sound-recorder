@@ -7,6 +7,12 @@ import ReactSoundRecorder, {
   setLanguage,
 } from "../../src";
 
+import "../../src/lib/main.css";
+import "../../src/lib/fonts/icomoon.eot";
+import "../../src/lib/fonts/icomoon.svg";
+import "../../src/lib/fonts/icomoon.ttf";
+import "../../src/lib/fonts/icomoon.woff";
+
 class Demo extends Component {
   state = {
     fullscreen: false,
