@@ -16,7 +16,8 @@ import "../../src/lib/fonts/icomoon.woff";
 class Demo extends Component {
   state = {
     fullscreen: false,
-    recorderEnabled: false
+    recorderEnabled: false,
+    editorVisivel: true
   };
 
   constructor(props) {
@@ -106,10 +107,19 @@ class Demo extends Component {
               />
               ({this.state.recorderEnabled ? "true" : "false"})
             </p>
+            <p>
+              <input
+                type="button"
+                value="Exibir/Ocultar Gravador"
+                onClick={() => this.setState({editorVisivel: !this.state.editorVisivel}) }
+              />
+              ({this.state.editorVisivel ? "true" : "false"})
+            </p>
           </div>
         </div>
         <div style={{ width: "600px", position: "relative" }}>
-          <ReactSoundRecorder customTranslationTable={null} recorderEnabled={this.state.recorderEnabled}  language="pt-br" />
+          {this.state.editorVisivel && (<ReactSoundRecorder customTranslationTable={null} recorderEnabled={this.state.recorderEnabled}  language="pt-br" />)}
+          
         </div>
       </div>
     );

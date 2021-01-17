@@ -91,6 +91,6 @@
   // ideally we do not want a global singleto refferencing our audio tool
   // but since this is a limited demo we can safely do it.
   w.PKAudioEditor = new PKAE();
-
+  w.PKAudioEditorConstructor = PKAE;
   PKAudioList.push(w.PKAudioEditor); // keeping track in the audiolist array of our instance
 })(window, document);

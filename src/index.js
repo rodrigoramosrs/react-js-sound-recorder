@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import audioBufferToWav from "./converter/audioBufferToWav";
 import translationCore, { Translate } from "./i10n/translation_core";
-
+import  {generateNewAppId, getAppId} from "./constants";
 import "./lib/oneup.js";
 
 import "./lib/dist/wavesurfer.js";
@@ -33,6 +33,7 @@ import "./lib/state.js";
 import "./lib/ui-fx.js";
 import "./lib/ui.js";
 
+
 // import "./lib/welcome.js";
 
 // import "./lib/fonts/icomoon.eot";
@@ -42,23 +43,33 @@ import "./lib/ui.js";
 
 var editor;
 var lastPropsRecorderEnabled;
-const AudioRecorderID = "app";
-
-//var editor = PKAudioEditor.init("app");
 
 function ReactSoundRecorder(props) {
   const [initialized, setInitialized] = useState(false);
   const [, updateState] = React.useState();
   const forceUpdate = React.useCallback(() => updateState({}), []);
+  generateNewAppId();
 
   useEffect(() => {
-    console.log('teste');
     if (initialized) return;
+    
     lastPropsRecorderEnabled = props.recorderEnabled;
     translationCore.Initialize({ customTranslationTable: props.customTranslationTable, language: props.language ? props.language : "pt_br" });
 
-    editor = PKAudioEditor.init(AudioRecorderID);
+    let deps = window.PKAudioEditor._deps;
+    window.PKAudioEditor = null;
+    window.PKAudioEditor = new window.PKAudioEditorConstructor()
+    window.PKAudioEditor._deps = deps;
+
+    editor = window.PKAudioEditor.init(getAppId());
     setInitialized(true);
+
+    var element = document.getElementsByName('pk_modal'), index;
+
+    for (index = element.length - 1; index >= 0; index--) {
+        element[index].parentNode.removeChild(element[index]);
+    }
+    
   }, []);
 
   useEffect(() => {
@@ -71,7 +82,7 @@ function ReactSoundRecorder(props) {
     <div
       style={{ display: "inline-table", width: "100%" }}
       data-record-enabled={props.recorderEnabled == true }
-      id={AudioRecorderID}
+      id={getAppId()}
     />
   );
 }
@@ -82,8 +93,14 @@ export function setLanguage(language) {
   let audioBuffer;
   if (editor.engine.is_ready) audioBuffer = getAudioBuffer();
 
-  document.getElementById(AudioRecorderID).innerHTML = "";
-  editor = PKAudioEditor.init(AudioRecorderID);
+  document.getElementById(getAppId()).innerHTML = "";
+
+  let deps = window.PKAudioEditor._deps;
+  window.PKAudioEditor = null;
+  window.PKAudioEditor = new window.PKAudioEditorConstructor()
+  window.PKAudioEditor._deps = deps;
+
+  editor = PKAudioEditor.init(getAppId());
   
   editor.ui.EnableDisableRecordFunction(lastPropsRecorderEnabled);
   

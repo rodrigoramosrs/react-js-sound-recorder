@@ -1,5 +1,6 @@
 import ReactSoundRecorder from "..";
 import { Translate } from "../i10n/translation_core";
+import {getAppId} from "../constants";
 
 (function (w, d, PKAE) {
   "use strict";
@@ -3097,7 +3098,7 @@ import { Translate } from "../i10n/translation_core";
     UI.el.appendChild(container);
 
     dragNDrop(
-      d.getElementById("app"),
+      d.getElementById(getAppId()),
       "pk_overlay",
       function (e) {
         PKAudioEditor.engine.LoadArrayBuffer(new Blob([e]));
