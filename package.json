@@ -1,6 +1,6 @@
 {
   "name": "react-js-sound-recorder",
-  "version": "1.0.12",
+  "version": "1.0.14",
   "description": "Simple Microphone Recorder build with ReactJS",
   "main": "lib/index.js",
   "module": "es/index.js",

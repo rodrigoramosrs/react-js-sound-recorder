@@ -41,19 +41,31 @@ import "./lib/ui.js";
 // import "./lib/fonts/icomoon.woff";
 
 var editor;
+var lastPropsRecorderEnabled;
 const AudioRecorderID = "app";
 
 //var editor = PKAudioEditor.init("app");
 
 function ReactSoundRecorder(props) {
   const [initialized, setInitialized] = useState(false);
+  const [, updateState] = React.useState();
+  const forceUpdate = React.useCallback(() => updateState({}), []);
+
   useEffect(() => {
+    console.log('teste');
     if (initialized) return;
+    lastPropsRecorderEnabled = props.recorderEnabled;
     translationCore.Initialize({ language: props.language ? props.language : "en" });
 
     editor = PKAudioEditor.init(AudioRecorderID);
     setInitialized(true);
   }, []);
+
+  useEffect(() => {
+    lastPropsRecorderEnabled = props.recorderEnabled;
+    console.log('new Props: ' + props.recorderEnabled)
+    editor.ui.EnableDisableRecordFunction(props.recorderEnabled);
+  } , [props.recorderEnabled]);
 
   return (
     <div
@@ -72,7 +84,9 @@ export function setLanguage(language) {
 
   document.getElementById(AudioRecorderID).innerHTML = "";
   editor = PKAudioEditor.init(AudioRecorderID);
-
+  
+  editor.ui.EnableDisableRecordFunction(lastPropsRecorderEnabled);
+  
   if (audioBuffer) editor.engine.LoadArrayBuffer(new Blob([audioBuffer]));
 }
 

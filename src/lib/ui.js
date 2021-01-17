@@ -1,3 +1,4 @@
+import ReactSoundRecorder from "..";
 import { Translate } from "../i10n/translation_core";
 
 (function (w, d, PKAE) {
@@ -17,6 +18,16 @@ import { Translate } from "../i10n/translation_core";
     this.fireEvent = app.fireEvent;
     this.listenFor = app.listenFor;
 
+
+    this.EnableDisableRecordFunction = function (enable) {
+      var classNames = ["pk_btn icon-rec","pk_btn icon-files-empty pk_inact","pk_btn icon-file-text2 pk_inact", "pk_btn icon-scissors pk_inact", "pk_btn icon-silence"];
+      for(var i =0; i < classNames.length; i++){
+        var elementToDisable = document.getElementsByClassName(classNames[i]);
+        debugger;
+        if(elementToDisable)
+          elementToDisable[0].style.visibility = !enable ? 'hidden' : '';
+      }
+    }
     // keep track of the active UI element
     this.InteractionHandler = {
       on: false,
@@ -329,12 +340,12 @@ import { Translate } from "../i10n/translation_core";
                       function isURL(str) {
                         var pattern = new RegExp(
                           "^((https?:)?\\/\\/)?" + // protocol
-                            "(?:\\S+(?::\\S*)?@)?" + // authentication
-                            "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // domain name
-                            "((\\d{1,3}\\.){3}\\d{1,3}))" + // OR ip (v4) address
-                            "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // port and path
-                            "(\\?[;&a-z\\d%_.~+=-]*)?" + // query string
-                            "(\\#[-a-z\\d_]*)?$",
+                          "(?:\\S+(?::\\S*)?@)?" + // authentication
+                          "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // domain name
+                          "((\\d{1,3}\\.){3}\\d{1,3}))" + // OR ip (v4) address
+                          "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // port and path
+                          "(\\?[;&a-z\\d%_.~+=-]*)?" + // query string
+                          "(\\#[-a-z\\d_]*)?$",
                           "i"
                         ); // fragment locater
                         if (!pattern.test(str)) {
@@ -2044,27 +2055,27 @@ import { Translate } from "../i10n/translation_core";
     var drag_mode = 0;
     var startingX = 0;
     var waveScrollMouseMove = function (e) {
-        e.stopPropagation();
-        e.preventDefault();
+      e.stopPropagation();
+      e.preventDefault();
 
-        var clx = e.clientX;
+      var clx = e.clientX;
 
-        if (e.touches) {
-          if (e.touches.length > 1) return;
+      if (e.touches) {
+        if (e.touches.length > 1) return;
 
-          clx = e.touches[0].clientX;
-        }
+        clx = e.touches[0].clientX;
+      }
 
-        var diff = -startingX + clx;
-        if (drag_mode === 0) UI.fireEvent("RequestPan", diff, 1);
-        else if (drag_mode === -1) {
-          UI.fireEvent("RequestZoom", diff, -1);
-        } else if (drag_mode === 1) {
-          UI.fireEvent("RequestZoom", diff, 1);
-        }
+      var diff = -startingX + clx;
+      if (drag_mode === 0) UI.fireEvent("RequestPan", diff, 1);
+      else if (drag_mode === -1) {
+        UI.fireEvent("RequestZoom", diff, -1);
+      } else if (drag_mode === 1) {
+        UI.fireEvent("RequestZoom", diff, 1);
+      }
 
-        startingX = clx;
-      },
+      startingX = clx;
+    },
       waveScrollMouseUp = function (e) {
         if (e.touches && e.touches.length > 1) return;
 
@@ -2187,19 +2198,19 @@ import { Translate } from "../i10n/translation_core";
 
     // change temp message, it's pretty ugly #### TODO
 
-    
+
     var ttmp = d.createElement("div");
     ttmp.className = "pk_tmpMsg";
     ttmp.innerHTML =
       Translate(
         //"Arraste e solte um arquivo de audio nessa janela, ou clique "
         "Audio Recorder - Web"
-      ) ;
-      // '<a style="white-space:nowrap;border:1px solid;border-radius:23px;padding:5px 18px;font-size:0.94em;margin-left:5px" ' +
-      // 'onclick="PKAudioEditor.engine.LoadSample()">' +
-      // Translate("aqui para usar um exemplo") +"</a>";
+      );
+    // '<a style="white-space:nowrap;border:1px solid;border-radius:23px;padding:5px 18px;font-size:0.94em;margin-left:5px" ' +
+    // 'onclick="PKAudioEditor.engine.LoadSample()">' +
+    // Translate("aqui para usar um exemplo") +"</a>";
     main_audio_view.appendChild(ttmp);
-      
+
     var ttmp2 = d.createElement("div");
     ttmp2.className = "pk_tmpMsg2";
     ttmp2.innerHTML =
@@ -2630,17 +2641,18 @@ import { Translate } from "../i10n/translation_core";
       btn_rec.setAttribute("disabled", "disabled");
     });
 
-    if(UI.el.getAttribute("data-record-enabled") !== "false")
-      transport.appendChild(btn_rec);
-
+    transport.appendChild(btn_rec);
     UI.KeyHandler.addCallback(
       "KeyRecR",
       function (k) {
+        if (UI.el.getAttribute("data-record-enabled") === "false") return;
+
         if (UI.InteractionHandler.on) return;
         btn_rec.click();
       },
       [82]
     );
+
 
     UI.listenFor("DidActionRecordStart", function () {
       btn_rec.classList.add("pk_act");
@@ -2684,8 +2696,8 @@ import { Translate } from "../i10n/translation_core";
         if (f)
           hover_duration.textContent = formatTime(
             PKAudioEditor.engine.wavesurfer.drawer.handleEvent(f) *
-              PKAudioEditor.engine.wavesurfer.VisibleDuration +
-              PKAudioEditor.engine.wavesurfer.LeftProgress
+            PKAudioEditor.engine.wavesurfer.VisibleDuration +
+            PKAudioEditor.engine.wavesurfer.LeftProgress
           );
       });
 
@@ -2708,8 +2720,8 @@ import { Translate } from "../i10n/translation_core";
 
           hover_duration.textContent = formatTime(
             PKAudioEditor.engine.wavesurfer.drawer.handleEvent(e) *
-              PKAudioEditor.engine.wavesurfer.VisibleDuration +
-              PKAudioEditor.engine.wavesurfer.LeftProgress
+            PKAudioEditor.engine.wavesurfer.VisibleDuration +
+            PKAudioEditor.engine.wavesurfer.LeftProgress
           );
         },
         false
@@ -2825,8 +2837,8 @@ import { Translate } from "../i10n/translation_core";
         (miliseconds < 10
           ? "00" + miliseconds
           : miliseconds < 100
-          ? "0" + miliseconds
-          : miliseconds)
+            ? "0" + miliseconds
+            : miliseconds)
       );
     }
     UI.formatTime = formatTime;
@@ -2877,7 +2889,7 @@ import { Translate } from "../i10n/translation_core";
         UI.footer.volumeGaugePeaker.setAttribute(
           "title",
           "Peak at " +
-            PKAudioEditor.engine.wavesurfer.getCurrentTime().toFixed(2)
+          PKAudioEditor.engine.wavesurfer.getCurrentTime().toFixed(2)
         );
         if (loudness[1] > 0) {
           UI.footer.volumeGaugePeaker2.className = "pk_peaker pk_act";
@@ -2889,7 +2901,7 @@ import { Translate } from "../i10n/translation_core";
           UI.footer.volumeGaugePeaker2.setAttribute(
             "title",
             "Peak at " +
-              PKAudioEditor.engine.wavesurfer.getCurrentTime().toFixed(2)
+            PKAudioEditor.engine.wavesurfer.getCurrentTime().toFixed(2)
           );
         }
       } else if (loudness[1] > 0) {
@@ -2902,7 +2914,7 @@ import { Translate } from "../i10n/translation_core";
         UI.footer.volumeGaugePeaker2.setAttribute(
           "title",
           "Peak at " +
-            PKAudioEditor.engine.wavesurfer.getCurrentTime().toFixed(2)
+          PKAudioEditor.engine.wavesurfer.getCurrentTime().toFixed(2)
         );
       } else {
         var tmp = 100 + loudness[0];
@@ -3206,6 +3218,7 @@ import { Translate } from "../i10n/translation_core";
       { passive: false }
     );
   }
+
   // ---
 
   PKAE._deps.ui = PKUI;

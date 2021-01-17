@@ -16,6 +16,7 @@ import "../../src/lib/fonts/icomoon.woff";
 class Demo extends Component {
   state = {
     fullscreen: false,
+    recorderEnabled: false
   };
 
   constructor(props) {
@@ -52,6 +53,10 @@ class Demo extends Component {
   mudarIdioma = (idioma) => {
     setLanguage(idioma);
   };
+
+  habilitarDesabilitarBotaoGravador = () => {
+    this.setState({recorderEnabled: !this.state.recorderEnabled})
+  }
 
   render() {
     return (
@@ -94,10 +99,18 @@ class Demo extends Component {
                 onClick={() => this.mudarIdioma("es")}
               />
             </p>
+            <p>
+              <input
+                type="button"
+                value="Habilitar/Desabilitar Gravador"
+                onClick={() => this.habilitarDesabilitarBotaoGravador() }
+              />
+              ({this.state.recorderEnabled ? "true" : "false"})
+            </p>
           </div>
         </div>
         <div style={{ width: "600px", position: "relative" }}>
-          <ReactSoundRecorder recorderEnabled={true} false language="pt-br" />
+          <ReactSoundRecorder recorderEnabled={this.state.recorderEnabled}  language="pt-br" />
         </div>
       </div>
     );
