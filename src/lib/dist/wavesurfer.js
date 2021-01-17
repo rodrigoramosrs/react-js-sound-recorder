@@ -2185,7 +2185,6 @@
                       return;
                     }
 
-                    // debugger;
 
                     _this2.fireEvent("audioprocess", _this2.getCurrentTime());
 
@@ -2200,7 +2199,6 @@
 
                   // Update the progress one more time to prevent it from being stuck in case of lower framerates
                   this.on("pause", function () {
-                    // debugger;
                     _this2.fireEvent("audioprocess", _this2.getCurrentTime());
                   });
                 },
@@ -5547,8 +5545,6 @@
                 ) {
                   var _this12 = this;
 
-                  // debugger;
-
                   var url = urlOrElt;
 
                   if (typeof urlOrElt === "string") {
@@ -6551,7 +6547,6 @@
                     audio.autoplay = true;
                     var dest = this.ac.createMediaStreamDestination();
 
-                    // debugger; // ####
                     this.gainNode1.disconnect();
                     this.gainNode1.connect(dest);
                     this.gainNode2.disconnect();

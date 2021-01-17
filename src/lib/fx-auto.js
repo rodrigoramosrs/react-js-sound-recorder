@@ -430,8 +430,6 @@
 			var offline_callback = function( rendered_buffer ) {
 						q.rbuff = rendered_buffer;
 
-						debugger;
-
 						// var img = new Image();
 						// img.src = q.app.engine.GetWave (rendered_buffer, 500, 200);
 

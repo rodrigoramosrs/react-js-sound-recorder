@@ -480,7 +480,6 @@
 
                   /* Loop playback. */
                   this.on("out", function () {
-                    //debugger;
                     if (_this3.loop) {
                       _this3.wavesurfer.play(_this3.start);
                     } else {

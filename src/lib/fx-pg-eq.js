@@ -2326,7 +2326,6 @@ import { Translate as t } from "../i10n/translation_core";
                   peak_dist < 3 &&
                   Math.abs(new_arr[peak_prev] - prev_val) < 150
                 ) {
-                  // debugger;
 
                   if (prev_val > new_arr[peak_prev]) {
                     new_arr[peak_prev] = 0;
@@ -2581,7 +2580,6 @@ import { Translate as t } from "../i10n/translation_core";
     };
 
     var hideShowRecorder = function (hide) {
-      debugger;
       //app.el.hidden = hide;
       app.el.style.visibility = hide ? "hidden" : "visible";
       app.el.style.position = hide ? "absolute" : "";
@@ -2605,7 +2603,6 @@ import { Translate as t } from "../i10n/translation_core";
           app.fireEvent("RequestStop");
           hideShowRecorder(false);
           q.el.remove();
-          debugger;
         },
 
         body:
@@ -3101,9 +3098,8 @@ import { Translate as t } from "../i10n/translation_core";
       },
       app
     );
-    debugger;
+    
     hideShowRecorder(true);
-    debugger;
     x.el.getElementsByClassName("pk_modal_title")[0].remove();
     app.el.parentElement.appendChild(x.el);
     //x.Show();

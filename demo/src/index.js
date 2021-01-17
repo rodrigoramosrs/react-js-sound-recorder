@@ -34,7 +34,6 @@ class Demo extends Component {
   };
 
   saveFile = () => {
-    debugger;
     let audio = getAudioBuffer();
 
     if (!audio) return;

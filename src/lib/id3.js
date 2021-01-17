@@ -770,8 +770,6 @@
 
     function readAtom(tag, data, offset, length, indent)
     {
-        // debugger;
-
         indent = indent === undefined ? "" : indent + "  ";
         var seek = offset;
         while (seek < offset + length)

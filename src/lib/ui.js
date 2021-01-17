@@ -23,7 +23,7 @@ import { Translate } from "../i10n/translation_core";
       var classNames = ["pk_btn icon-rec","pk_btn icon-files-empty pk_inact","pk_btn icon-file-text2 pk_inact", "pk_btn icon-scissors pk_inact", "pk_btn icon-silence"];
       for(var i =0; i < classNames.length; i++){
         var elementToDisable = document.getElementsByClassName(classNames[i]);
-        debugger;
+        
         if(elementToDisable)
           elementToDisable[0].style.visibility = !enable ? 'hidden' : '';
       }
