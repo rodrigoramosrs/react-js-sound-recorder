@@ -1,9 +1,15 @@
 // const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
+const TerserPlugin = require("terser-webpack-plugin");
 
 module.exports = {
   type: "react-component",
   webpack: {
-    
+    // terser: {
+    //   terserOptions: {
+    //     mangle: true,
+    //     beautify: true
+    //   }
+    // },
     rules: {
       exclude: {
         test: [
@@ -21,7 +27,7 @@ module.exports = {
           "src/lib/dist/plugin/wavesurfer.regions.js",
         ],
         loader: "dumb-loader",
-        
+
       },
     },
   },

@@ -97,7 +97,7 @@ class Demo extends Component {
           </div>
         </div>
         <div style={{ width: "600px", position: "relative" }}>
-          <ReactSoundRecorder />
+          <ReactSoundRecorder recorderEnabled={true} false language="pt-br" />
         </div>
       </div>
     );

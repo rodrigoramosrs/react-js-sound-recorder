@@ -45,11 +45,11 @@ const AudioRecorderID = "app";
 
 //var editor = PKAudioEditor.init("app");
 
-function ReactSoundRecorder() {
+function ReactSoundRecorder(props) {
   const [initialized, setInitialized] = useState(false);
   useEffect(() => {
     if (initialized) return;
-    translationCore.Initialize({ language: "en" });
+    translationCore.Initialize({ language: props.language ? props.language : "en" });
 
     editor = PKAudioEditor.init(AudioRecorderID);
     setInitialized(true);
@@ -58,6 +58,7 @@ function ReactSoundRecorder() {
   return (
     <div
       style={{ display: "inline-table", width: "100%" }}
+      data-record-enabled={props.recorderEnabled == true }
       id={AudioRecorderID}
     />
   );

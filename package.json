@@ -29,7 +29,9 @@
     "nwb-sass": "^0.10.2",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
-    "react-dom": "^16.8.6"
+    "react-dom": "^16.8.6",
+    "terser-webpack-plugin": "^5.1.1",
+    "uglifyjs-webpack-plugin": "^2.2.0"
   },
   "author": "Rodrigo Ramos",
   "homepage": "https://github.com/rodrigoramosrs/react-js-sound-recorder",

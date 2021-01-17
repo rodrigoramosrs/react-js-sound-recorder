@@ -2186,18 +2186,20 @@ import { Translate } from "../i10n/translation_core";
     //footer.appendChild(volume_parent);
 
     // change temp message, it's pretty ugly #### TODO
+
+    
     var ttmp = d.createElement("div");
     ttmp.className = "pk_tmpMsg";
     ttmp.innerHTML =
       Translate(
-        "Arraste e solte um arquivo de audio nessa janela, ou clique "
-      ) +
-      '<a style="white-space:nowrap;border:1px solid;border-radius:23px;padding:5px 18px;font-size:0.94em;margin-left:5px" ' +
-      'onclick="PKAudioEditor.engine.LoadSample()">' +
-      Translate("aqui para usar um exemplo") +
-      "</a>";
+        //"Arraste e solte um arquivo de audio nessa janela, ou clique "
+        "Audio Recorder - Web"
+      ) ;
+      // '<a style="white-space:nowrap;border:1px solid;border-radius:23px;padding:5px 18px;font-size:0.94em;margin-left:5px" ' +
+      // 'onclick="PKAudioEditor.engine.LoadSample()">' +
+      // Translate("aqui para usar um exemplo") +"</a>";
     main_audio_view.appendChild(ttmp);
-
+      
     var ttmp2 = d.createElement("div");
     ttmp2.className = "pk_tmpMsg2";
     ttmp2.innerHTML =
@@ -2208,7 +2210,7 @@ import { Translate } from "../i10n/translation_core";
       '<button tabIndex="-1" class="pk_btn" ' +
       "onclick=\"PKAudioEditor.fireEvent('RequestCancelModal');\">cancelar</button></div>";
 
-    //d.body.appendChild(ttmp2);
+    d.body.appendChild(ttmp2);
     UI.el.appendChild(ttmp2);
     UI.loaderEl = ttmp2;
 
@@ -2628,7 +2630,9 @@ import { Translate } from "../i10n/translation_core";
       btn_rec.setAttribute("disabled", "disabled");
     });
 
-    transport.appendChild(btn_rec);
+    if(UI.el.getAttribute("data-record-enabled") !== "false")
+      transport.appendChild(btn_rec);
+
     UI.KeyHandler.addCallback(
       "KeyRecR",
       function (k) {
