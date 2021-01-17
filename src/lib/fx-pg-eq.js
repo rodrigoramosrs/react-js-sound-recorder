@@ -2616,7 +2616,7 @@ import { Translate as t } from "../i10n/translation_core";
           t("Volume") +
           " :" +
           "</label>" +
-          '<canvas width="200" height="10"></canvas></div>' +
+          '<canvas width="150" height="10"></canvas></div>' +
           "</div>" +
           '<div class="pk_row" style="display:flex; padding-top: 4px; margin-bottom: 2px; padding-bottom: 4px;">' +
           "<label >" +
