@@ -110,7 +110,7 @@ class Demo extends Component {
           </div>
         </div>
         <div style={{ width: "600px", position: "relative" }}>
-          <ReactSoundRecorder recorderEnabled={this.state.recorderEnabled}  language="pt-br" />
+          <ReactSoundRecorder customTranslationTable={null} recorderEnabled={this.state.recorderEnabled}  language="pt-br" />
         </div>
       </div>
     );

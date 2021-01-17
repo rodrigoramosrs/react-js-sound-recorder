@@ -55,7 +55,7 @@ function ReactSoundRecorder(props) {
     console.log('teste');
     if (initialized) return;
     lastPropsRecorderEnabled = props.recorderEnabled;
-    translationCore.Initialize({ language: props.language ? props.language : "en" });
+    translationCore.Initialize({ customTranslationTable: props.customTranslationTable, language: props.language ? props.language : "pt_br" });
 
     editor = PKAudioEditor.init(AudioRecorderID);
     setInitialized(true);
