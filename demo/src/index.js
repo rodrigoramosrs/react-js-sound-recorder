@@ -3,6 +3,8 @@ import { render } from "react-dom";
 //import "./style.css";
 import ReactSoundRecorder, {
   loadFromUrl,
+  getMP3AudioBuffer,
+  getWaveAudioBuffer,
   getAudioBuffer,
   setLanguage,
 } from "../../src";
@@ -49,6 +51,45 @@ class Demo extends Component {
     link.download = `${filename}-${+new Date()}.wav`;
     link.click();
   };
+  saveMP3File = () => {
+    getMP3AudioBuffer(function(progress){
+      console.log('Progress: ' + progress)
+    },
+    function(mp3File){
+      if (!mp3File) return;
+
+
+      var url = (window.URL || window.webkitURL).createObjectURL(mp3File);
+
+      var a = document.createElement("a");
+      a.href = url;
+      a.download = "output.mp3";
+      a.style.display = "none";
+      document.body.appendChild(a);
+      a.click();
+    });
+  };
+
+  saveDefaultWavFile = () => {
+    getWaveAudioBuffer(function(progress){
+      console.log('Progress: ' + progress)
+    },
+    function(wavFile){
+      if (!wavFile) return;
+
+
+      var url = (window.URL || window.webkitURL).createObjectURL(wavFile);
+
+      var a = document.createElement("a");
+      a.href = url;
+      a.download = "output.wav";
+      a.style.display = "none";
+      document.body.appendChild(a);
+      a.click();
+    });
+  };
+
+
 
   mudarIdioma = (idioma) => {
     setLanguage(idioma);
@@ -78,6 +119,21 @@ class Demo extends Component {
                 onClick={this.saveFile}
               />
             </p>
+            <p>
+              <input
+                type="button"
+                value="Salvar Arquivo MP3"
+                onClick={this.saveMP3File}
+              />
+            </p>
+            <p>
+              <input
+                type="button"
+                value="Salvar Arquivo WAV (Default)"
+                onClick={this.saveDefaultWavFile}
+              />
+            </p>
+            
             <p>
               <input
                 type="button"

@@ -33,7 +33,6 @@ import "./lib/state.js";
 import "./lib/ui-fx.js";
 import "./lib/ui.js";
 
-
 // import "./lib/welcome.js";
 
 // import "./lib/fonts/icomoon.eot";
@@ -135,6 +134,14 @@ export function loadFromSample(sample) {
 export function getAudioBuffer() {
   var wav = audioBufferToWav(editor.engine.wavesurfer.backend.buffer);
   return wav;
+}
+
+export function getMP3AudioBuffer(progressCallback, successCallback) {
+  editor.engine.DownloadFile("teste",'mp3',64,null,false,progressCallback, successCallback)
+}
+
+export function getWaveAudioBuffer(progressCallback, successCallback) {
+  editor.engine.DownloadFile("teste",'wav',64,null,false,progressCallback, successCallback)
 }
 
 ReactSoundRecorder.propTypes = {

@@ -1,3 +1,5 @@
+function LameJsCore() {
+ 
 function lamejs() {
   function new_byte(count) {
     return new Int8Array(count);
@@ -20749,6 +20751,7 @@ var samples_right = null;
 var first_buffer = true;
 
 onmessage = function (ev) {
+  
   if (!ev.data) return;
 
   if (ev.data.sample_rate) {
@@ -20758,7 +20761,7 @@ onmessage = function (ev) {
 
     return;
   }
-
+  
   if (first_buffer) {
     samples_left = new Int16Array(ev.data);
     first_buffer = false;
@@ -20806,4 +20809,15 @@ onmessage = function (ev) {
   var blob = new Blob(mp3Data, { type: "audio/mp3" });
   postMessage(blob);
   // postMessage( mp3Data );
-};
+}; 
+}
+
+
+
+let code = LameJsCore.toString();
+code = code.substring(code.indexOf("{")+1, code.lastIndexOf("}"));
+
+const blob = new Blob([code], {type: "application/javascript"});
+const worker_script = URL.createObjectURL(blob);
+
+module.exports = worker_script;

@@ -226,7 +226,7 @@ import { Translate as t } from "../i10n/translation_core";
       }
     };
 
-    this.DownloadFile = function (name, format, kbps, selection, stereo) {
+    this.DownloadFile = function (name, format, kbps, selection, stereo, progressCallback, successCallback) {
       if (!q.is_ready) return;
 
       app.fireEvent("WillDownloadFile");
@@ -250,13 +250,15 @@ import { Translate as t } from "../i10n/translation_core";
           selection,
           stereo,
           function (val) {
+            progressCallback && progressCallback(val);
             if (val === "done") {
               setTimeout(function () {
                 app.fireEvent("DidDownloadFile");
               }, 12);
               app.stopListeningForName("RequestCancelModal");
             } else app.fireEvent("DidProgressModal", val);
-          }
+          },
+          successCallback
         );
       }, 220);
     };

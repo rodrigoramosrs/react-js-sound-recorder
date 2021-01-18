@@ -1,5 +1,5 @@
-import { default as wave } from "./wav.js";
-import { default as lame } from "./lame.js";
+import  wave  from "./wav.js";
+import  lame  from "./lame.js";
 
 (function (PKAE) {
   "use strict";
@@ -757,15 +757,16 @@ import { default as lame } from "./lame.js";
       kbps,
       selection,
       stereo,
-      callback
+      progressCallback,
+      successCallback
     ) {
       if (wavesurfer && wavesurfer.backend && wavesurfer.backend.buffer) {
       } else {
         return false;
       }
-
+      
       if (format === "mp3") {
-        //worker = new Worker("./lame.js");
+        //worker = new Worker("~/lame.js");
         worker = new Worker(lame);
       } else {
         //worker = new Worker("./wav.js");
@@ -830,10 +831,14 @@ import { default as lame } from "./lame.js";
 
       worker.onmessage = function (ev) {
         if (ev.data.percentage) {
-          callback && callback(ev.data.percentage);
+          progressCallback && progressCallback(ev.data.percentage);
           return;
         }
-        forceDownload(ev.data);
+        if(successCallback) {
+          successCallback(ev.data);
+          progressCallback && progressCallback("done");
+        }
+        else forceDownload(ev.data);
 
         worker.terminate();
         worker = null;
@@ -865,7 +870,7 @@ import { default as lame } from "./lame.js";
         document.body.appendChild(a);
         a.click();
 
-        callback && callback("done");
+        progressCallback && progressCallback("done");
       }
     }
 
