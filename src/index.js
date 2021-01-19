@@ -106,6 +106,15 @@ export function setLanguage(language) {
   if (audioBuffer) editor.engine.LoadArrayBuffer(new Blob([audioBuffer]));
 }
 
+export function loadFromArrayBuffer(audioBuffer) {
+  if (!editor) {
+    alert("Gravador não incializado.");
+    return;
+  }
+
+  editor.engine.LoadArrayBuffer(audioBuffer);
+}
+
 export function loadFromUrl(url) {
   if (!editor) {
     alert("Gravador não incializado.");
